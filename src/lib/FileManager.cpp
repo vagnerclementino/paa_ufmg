@@ -19,6 +19,7 @@ namespace PAA {
 FileManager::FileManager() {
 	this->fileName = std::string();
 	this->pFile = NULL;
+	this->fileMode = NONE_MODE;
 
 }
 
@@ -37,6 +38,7 @@ FileManager::FileManager(std::string& fileName, char fileMode){
 
 	this->pFile = NULL;
 
+	//Abrindo o arquivo e definindo o modo de abertura.
 	this->openFile(fileNameAux,fileMode);
 
 
@@ -116,16 +118,17 @@ void FileManager::openFile(const std::string& fileName, char fileMode){
 		try {
 
 				switch (std::toupper(fileMode)) {
-				case 'A':
+				case APPEND_MODE:
 					//Append mode
 					this->pFile = new std::fstream(fileName.c_str(),
 							std::ios::out | std::ios::app);
+
 					break;
-				case 'W':
+				case WRITE_MODE:
 					//Write mode
 					this->pFile = new std::fstream(fileName.c_str(), std::ios::out);
 					break;
-				case 'R':
+				case READ_MODE:
 					//Read Mode
 					this->pFile = new std::fstream(fileName.c_str(), std::ios::in);
 					break;
@@ -138,6 +141,7 @@ void FileManager::openFile(const std::string& fileName, char fileMode){
 				if (this->pFile->good()) {
 
 					this->fileName = fileName;
+					this->fileMode = fileMode;
 
 				} else {
 					throw std::ios::failure("Erro na abertura do arquivo.");
@@ -178,7 +182,16 @@ void FileManager::closeFile(){
 
 bool FileManager::hasMore(void) const{
 
-	return (!this->pFile->eof());
+	bool hasMore = false;
+
+	if(this->fileMode == READ_MODE){
+		hasMore = (!this->pFile->eof());
+	}else{
+
+		throw PAA::PAAException("O arquivo " + this->getFileName() + " está no modo " + this->fileMode + ".Portanto o método FileManager::hasMore(void) não pode ser executado.");
+	}
+
+	return (hasMore);
 
 }
 

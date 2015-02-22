@@ -17,6 +17,10 @@
 
 #define MAXPATHLEN 200 		//Tamanho máximo do caminho caminho de um arquivo
 #define PATHSEPARATOR '/'   //O seperador de de arquivos e diretórios no linux
+#define WRITE_MODE	'W'
+#define READ_MODE	'R'
+#define APPEND_MODE	'A'
+#define NONE_MODE	'N' 	//Modo para quando nenhum arquivo foi aberto.
 
 #include <string>
 #include <fstream>
@@ -30,6 +34,8 @@ private:
 	std::string fileName;
 
 	std::fstream *pFile;
+
+	char fileMode;
 
 	/*******************************************************************
 	 *
