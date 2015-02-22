@@ -2,7 +2,11 @@
  * PAAException.h
  *
  *  Created on: 02/02/2015
- *      Author: vagner
+ *      Author: Vagner Clementino
+ *      Objetivo: Classe de lança as exceções
+ *      		  ocorridas no programas
+ *      		  do trabalho prático da
+ *      		  disciplina PAA.
  */
 
 #ifndef PAAEXCEPTION_H_
@@ -19,9 +23,17 @@ private:
 	std::exception raisedException;
 
 
+	/***************************************************************
+	 *
+	 *  	Toda exceção lançada deverá informar os motivos do
+	 *  	lançamento da mesma, portanto, o construtor sem
+	 *  	argumento não poderá ser chamado. *
+	 *
+	 * *************************************************************/
+	PAAException();
 
 public:
-	PAAException();
+
 	PAAException (const std::string&, const std::exception&);
 	PAAException (const std::string&);
 	void printDebugMessage(void) const ;

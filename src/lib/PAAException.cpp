@@ -2,7 +2,7 @@
  * PAAException.cpp
  *
  *  Created on: 02/02/2015
- *      Author: vagner
+ *      Author: Vagner Clementino
  */
 
 #include "PAAException.h"
@@ -12,7 +12,7 @@
 namespace PAA {
 
 PAAException::PAAException():exception() {
-	// TODO Auto-generated constructor stub
+	//Do nothing. Construtor privado.
 
 }
 
