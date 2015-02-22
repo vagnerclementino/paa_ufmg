@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
     	tp0.run();
     	//Exibindo os dados da execução
     	tp0.showStatistics();
-    	tp0.showUserMessage("Everything is gonna be alright");
     	exit(EXIT_SUCCESS);
 	} catch (const PAA::PAAException& e) {
 			e.printDebugMessage();
