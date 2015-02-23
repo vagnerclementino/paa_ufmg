@@ -29,7 +29,7 @@ struct tm TrabalhoPratico::getSystemTime(void){
 
 TrabalhoPratico::TrabalhoPratico() {
 
-	std::string logFileName("paa.log");
+	std::string logFileName("./log/paa.log");
 	this->argc = 0;
 	this->argv = NULL;
 
@@ -46,7 +46,7 @@ TrabalhoPratico::TrabalhoPratico() {
 
 TrabalhoPratico::TrabalhoPratico(int argc, char** argv){
 
-	std::string logFileName("paa.log");
+	std::string logFileName("./log/paa.log");
 	this->argc = argc;
 	this->argv = argv;
 	this->startTime = new struct tm;
