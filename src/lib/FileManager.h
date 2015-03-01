@@ -37,10 +37,6 @@ private:
 
 	char fileMode;
 
-	std::string lastRead; //Armazena a última leitura realizada em um arquivo.
-
-	bool isEOF; //Define se o arquivo chegou em EOF
-
 	/*******************************************************************
 	 *
 	 *  	Nome: getCurrentDirectory
@@ -146,7 +142,7 @@ public:
 	 *				 FALSE, caso o arquivo esteja em EOF
 	 *
 	 ********************************************************/
-	bool hasMore(void);
+	bool hasMore(void)const;
 
 	virtual ~FileManager();
 };
