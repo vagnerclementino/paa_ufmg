@@ -100,11 +100,23 @@ protected:
 	 *	Nome:	   setLogFile
 	 *	Função:  	Definir o nome do arquivo de log do programa
 	 *	Atributo:  Uma string com o nome do arquivo
-	 *	Retorno:   Uma string com a data/hora formatada tipo tm
 	 *	Retorno:   N/A
 	 *
 	 ******************************************************************/
 	 void setLogFile(const std::string&);
+
+
+	 /******************************************************************
+	 *
+	 * Nome: getFormatedTimeString
+	 * Função: Retorna uma data/hora no formato
+	 * DD/MM/YYYY - HH:MM:SS
+	 * Atributo: struct do tipo tm
+	 * Retorno: Uma string com a data/hora formatada
+	 *
+	 */
+	 std::string getFormatedTimeString(const struct tm&) const;
+
 };
 
 } /* namespace PAA */

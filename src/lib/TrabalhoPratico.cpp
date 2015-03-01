@@ -104,16 +104,12 @@ void TrabalhoPratico::setFinalTime(void){
 
 std::string TrabalhoPratico::getFormatedTimeString(
 		const struct tm& time) const {
-
-	char timeString [MAX_TIME_STRING];
-
+	char timeString[MAX_TIME_STRING];
 	if (strftime(timeString, sizeof(timeString), "%d/%m/%Y - %T", &time)) {
-
 		return timeString;
-	}else{
+	} else {
 		throw std::exception();
 	}
-
 }
 
 void TrabalhoPratico::showStatistics(void){
