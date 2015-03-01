@@ -10,6 +10,7 @@ CFLAGS= -g -c -Wall -D__USE_FIXED_PROTOTYPES__ -lm
 PROGRAM_NAME=tp0
 CRIADOR=Vagner Clementino
 PAA_LIB_PATH=../lib
+BIN_DIR=./bin/
 OBJS=main.o \
 	TP0.o \
 	$(PAA_LIB_PATH)/FileManager.o \
@@ -22,17 +23,17 @@ OUTPUTFILE=output.txt
 
  
 
-all: msg_user linking
+all: msg_user linking $(BIN_DIR)/$(PROGRAM_NAME)
 	@echo "Executando o programa..."
 	@rm -f $(OBJS) *.gch
-	@./$(PROGRAM_NAME)
+	@./$(BIN_DIR)/$(PROGRAM_NAME)
 	
 msg_user:
 	@echo "Executando o makefile do programa" \
 	       "$(PROGRAM_NAME) criado por $(CRIADOR)."
 	
 linking: $(OBJS)
-	@$(CC) -o $(PROGRAM_NAME) $(OBJS)
+	@$(CC) -o $(BIN_DIR)/$(PROGRAM_NAME) $(OBJS)
 	@echo "Linking executado com sucesso."
 
 main.o: main.cpp

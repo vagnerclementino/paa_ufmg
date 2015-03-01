@@ -27,17 +27,6 @@ FileManager::FileManager() {
 
 FileManager::FileManager(std::string& fileName, char fileMode){
 
-	std::string fileNameAux;
-
-	if(this->isfullPath(fileName)){
-
-		fileNameAux = fileName;
-
-	}else{
-
-		fileNameAux = this->getCurrentDirectory() + PATHSEPARATOR + fileName;
-	}
-
 	this->pFile = NULL;
 
 	this->lastRead = std::string();
@@ -45,7 +34,7 @@ FileManager::FileManager(std::string& fileName, char fileMode){
 	this->isEOF = false;
 
 	//Abrindo o arquivo e definindo o modo de abertura.
-	this->openFile(fileNameAux,fileMode);
+	this->openFile(fileName,fileMode);
 
 
 }
@@ -86,7 +75,7 @@ std::string FileManager::getFileName(void)const{
 
 }
 
-bool FileManager::isfullPath(std::string& path)const{
+bool FileManager::isfullPath(const std::string& path)const{
 
 	std::size_t found;
 
@@ -118,54 +107,76 @@ void FileManager::writeToFile(const std::string& str){
 
 void FileManager::openFile(const std::string& fileName, char fileMode){
 
+	std::string fileNameAux;
 
-	if (this->pFile == NULL ){
+	if (this->isfullPath(fileName)) {
 
-		try {
+		fileNameAux = fileName;
 
-				switch (std::toupper(fileMode)) {
-				case APPEND_MODE:
-					//Append mode
-					this->pFile = new std::fstream(fileName.c_str(),
-							std::ios::out | std::ios::app);
+	} else {
 
-					break;
-				case WRITE_MODE:
-					//Write mode
-					this->pFile = new std::fstream(fileName.c_str(), std::ios::out);
-					break;
-				case READ_MODE:
-					//Read Mode
-					this->pFile = new std::fstream(fileName.c_str(), std::ios::in);
-					break;
-				default:
-					throw PAAException(
-							"O modo informado não existe. Os valores permitidos são A - append, W - write e R - read.");
+		fileNameAux = this->getCurrentDirectory() + PATHSEPARATOR + fileName;
+	}
 
-				}
+	if (this->pFile != NULL       && this->pFile->is_open() ) {
 
-				if (this->pFile->good()) {
+		if (this->fileName == fileNameAux && this->fileMode == fileMode)
+		{
+			throw PAA::PAAException("O arquivo " + this->fileName +
+									" já esta aberto no modo " +
+									this->fileMode + ". Nada a ser feito"
+									);
+		}
+		else{
 
-					this->fileName = fileName;
-					this->fileMode = fileMode;
+			this->closeFile();
+			delete this->pFile;
 
-				} else {
-					throw std::ios::failure("Erro na abertura do arquivo.");
-				}
+		}
 
-			} catch (const std::exception& e) {
-				throw PAA::PAAException(
-						"Erro ao tentar abrir o arquivo " + fileName + ". Detalhes: "
-								+ e.what());
-			}
+	}
+
+	try{
+
+		switch (std::toupper(fileMode)) {
+			case APPEND_MODE:
+				//Append mode
+				this->pFile = new std::fstream(fileNameAux.c_str(),
+						std::ios::out | std::ios::app);
+				break;
+			case WRITE_MODE:
+				//Write mode
+				this->pFile = new std::fstream(fileNameAux.c_str(), std::ios::out);
+				break;
+			case READ_MODE:
+				//Read Mode
+				this->pFile = new std::fstream(fileNameAux.c_str(), std::ios::in);
+				break;
+			default:
+			throw PAAException(
+					"O modo informado não existe. Os valores permitidos são A - append, W - write e R - read.");
+
+		}
+
+		if (this->pFile->good()) {
+
+			this->fileName = fileNameAux;
+			this->fileMode = fileMode;
+			this->isEOF = false;
+
+		} else {
+			throw std::ios::failure("Erro na abertura do arquivo.");
+		}
+
+	} catch (const std::exception& e) {
+		throw PAA::PAAException(
+				"Erro ao tentar abrir o arquivo " + fileNameAux + ". Detalhes: "
+						+ e.what());
+	}
 
 
 	}
-	else if (this->pFile->is_open()){
-		throw PAA::PAAException("O arquivo " + fileName + " já esta aberto. Nada a ser feito");
-	}
 
-}
 
 void FileManager::closeFile(){
 	if (this->pFile == NULL){
@@ -232,6 +243,8 @@ bool FileManager::hasMore(void){
 
 std::string FileManager::readLine(void){
 
+	std::string line;
+
 	if (this->pFile == NULL){
 
 		throw PAA::PAAException("Não foi possível ler linha do arquivo. O apontador  é NULL");
@@ -239,7 +252,7 @@ std::string FileManager::readLine(void){
 	} else 	if(this->pFile->is_open()){
 
 
-		return this->lastRead;
+		line = this->lastRead;
 
 	} else{
 
@@ -247,5 +260,8 @@ std::string FileManager::readLine(void){
 
 
 	}
+
+	return line;
 }
+
 }/* namespace PAA */

@@ -12,6 +12,7 @@
 #include <sstream>
 #include "FileManager.h"
 #include <iomanip>
+#include <string>
 
 using namespace std;
 namespace PAA {
@@ -29,7 +30,7 @@ struct tm TrabalhoPratico::getSystemTime(void){
 
 TrabalhoPratico::TrabalhoPratico() {
 
-	std::string logFileName("./log/paa.log");
+	std::string logFileName("./paa.log");
 	this->argc = 0;
 	this->argv = NULL;
 
@@ -46,7 +47,7 @@ TrabalhoPratico::TrabalhoPratico() {
 
 TrabalhoPratico::TrabalhoPratico(int argc, char** argv){
 
-	std::string logFileName("./log/paa.log");
+	std::string logFileName("./paa.log");
 	this->argc = argc;
 	this->argv = argv;
 	this->startTime = new struct tm;
@@ -103,16 +104,12 @@ void TrabalhoPratico::setFinalTime(void){
 
 std::string TrabalhoPratico::getFormatedTimeString(
 		const struct tm& time) const {
-
-	char timeString [MAX_TIME_STRING];
-
+	char timeString[MAX_TIME_STRING];
 	if (strftime(timeString, sizeof(timeString), "%d/%m/%Y - %T", &time)) {
-
 		return timeString;
-	}else{
+	} else {
 		throw std::exception();
 	}
-
 }
 
 void TrabalhoPratico::showStatistics(void){
@@ -145,6 +142,12 @@ void TrabalhoPratico::showStatistics(void){
 			         << std::setw(2) << std::setfill('0') << seconds << "s";
 
 	this->showUserMessage(ss.str());
+
+}
+
+void TrabalhoPratico::setLogFile(const std::string& logFileName){
+
+	this->logFile->openFile(logFileName,'A');
 
 }
 

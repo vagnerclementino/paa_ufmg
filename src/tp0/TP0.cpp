@@ -17,8 +17,7 @@ namespace PAA {
 
 TP0::TP0():TrabalhoPratico()
 {
- //Do nothing
-
+	this->setLogFile(std::string("./outputs/tp0.log"));
 
 }
 
