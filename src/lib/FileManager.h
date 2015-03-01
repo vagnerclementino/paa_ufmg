@@ -62,7 +62,7 @@ private:
 	 *				   FALSE, caso contrario
 	 *
 	 * **************************************************************/
-	bool isfullPath(std::string&)const;
+	bool isfullPath(const std::string&)const;
 
 
 public:
