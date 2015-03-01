@@ -20,6 +20,8 @@ FileManager::FileManager() {
 	this->fileName = std::string();
 	this->pFile = NULL;
 	this->fileMode = NONE_MODE;
+	this->lastRead = std::string();
+	this->isEOF = false;
 
 }
 
@@ -37,6 +39,10 @@ FileManager::FileManager(std::string& fileName, char fileMode){
 	}
 
 	this->pFile = NULL;
+
+	this->lastRead = std::string();
+
+	this->isEOF = false;
 
 	//Abrindo o arquivo e definindo o modo de abertura.
 	this->openFile(fileNameAux,fileMode);
@@ -180,15 +186,43 @@ void FileManager::closeFile(){
 	}
 }
 
-bool FileManager::hasMore(void) const{
+bool FileManager::hasMore(void){
 
 	bool hasMore = false;
 
-	if(this->fileMode == READ_MODE){
-		hasMore = (!this->pFile->eof());
-	}else{
+	//Verificando se o apontador do arquivo é valido
+	if(this->pFile == NULL){
+		throw PAA::PAAException("Não foi possível ler linha do arquivo. O apontador  é NULL");
+
+	};
+
+	//Verificando se o arquivo foi aberto no modo de leitura
+	if(this->fileMode != READ_MODE){
 
 		throw PAA::PAAException("O arquivo " + this->getFileName() + " está no modo " + this->fileMode + ".Portanto o método FileManager::hasMore(void) não pode ser executado.");
+	};
+
+	//Verificando se o arquivo está aberto
+	if(!this->pFile->is_open()) {
+
+		throw PAA::PAAException("O arquivo " + this->getFileName() + " não está aberto.");
+
+	};
+
+
+	//Nenhum erro detectado. Leitura pode será ser realizada
+	if (!this->isEOF && !this->pFile->eof()){
+
+		//Realiza a leitura da linha do arquivo e armazena no "buffer" lastRead
+		std::getline(*(this->pFile), this->lastRead);
+
+		hasMore = true;
+
+	} else{
+
+		hasMore = false;
+		this->isEOF = true;
+
 	}
 
 	return (hasMore);
@@ -198,8 +232,6 @@ bool FileManager::hasMore(void) const{
 
 std::string FileManager::readLine(void){
 
-	std::string line;
-
 	if (this->pFile == NULL){
 
 		throw PAA::PAAException("Não foi possível ler linha do arquivo. O apontador  é NULL");
@@ -207,12 +239,13 @@ std::string FileManager::readLine(void){
 	} else 	if(this->pFile->is_open()){
 
 
-		std::getline(*(this->pFile), line);
-		return line;
+		return this->lastRead;
 
 	} else{
 
-		throw PAA::PAAException("O arquivo " + this->getFileName() + " não está aberto");
+		throw PAA::PAAException("O arquivo " + this->getFileName() + " não está aberto.");
+
+
 	}
 }
 }/* namespace PAA */
