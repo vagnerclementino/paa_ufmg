@@ -12,6 +12,7 @@
 #include <sstream>
 #include "FileManager.h"
 #include <iomanip>
+#include <string>
 
 using namespace std;
 namespace PAA {
@@ -145,6 +146,12 @@ void TrabalhoPratico::showStatistics(void){
 			         << std::setw(2) << std::setfill('0') << seconds << "s";
 
 	this->showUserMessage(ss.str());
+
+}
+
+void TrabalhoPratico::setLogFile(const std::string& logFileName){
+
+	this->logFile->openFile(logFileName,'A');
 
 }
 
