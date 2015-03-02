@@ -10,7 +10,7 @@ CFLAGS= -g -c -Wall -D__USE_FIXED_PROTOTYPES__ -lm
 PROGRAM_NAME=tp0
 CRIADOR=Vagner Clementino
 PAA_LIB_PATH=../lib
-BIN_DIR=./bin/
+BIN_DIR=./bin
 OBJS=main.o \
 	TP0.o \
 	$(PAA_LIB_PATH)/FileManager.o \
