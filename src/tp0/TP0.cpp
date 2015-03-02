@@ -31,7 +31,7 @@ void TP0::run(void ){
 
 			this->showUserMessage("Ola Mundo");
 
-			sleep(10);
+			sleep(15);
 
 			this->showUserMessage("Finalizando a execução do TP1");
 
