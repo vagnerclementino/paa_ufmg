@@ -10,9 +10,12 @@ CFLAGS= -g -c -Wall -D__USE_FIXED_PROTOTYPES__ -lm
 PROGRAM_NAME=tp0
 CRIADOR=Vagner Clementino
 PAA_LIB_PATH=../lib
+SRC_FOLDER=./src
 BIN_DIR=./bin
-OBJS=main.o \
-	TP0.o \
+IN_DIR=./inputs
+OUT_DIR=./outputs
+OBJS=$(SRC_FOLDER)/main.o \
+	$(SRC_FOLDER)/TP0.o \
 	$(PAA_LIB_PATH)/FileManager.o \
 	$(PAA_LIB_PATH)/PAAException.o \
 	$(PAA_LIB_PATH)/TrabalhoPratico.o 
@@ -23,10 +26,15 @@ OUTPUTFILE=output.txt
 
  
 
-all: msg_user linking $(BIN_DIR)/$(PROGRAM_NAME)
+all: app_structure msg_user linking $(BIN_DIR)/$(PROGRAM_NAME)
 	@echo "Executando o programa..."
 	@rm -f $(OBJS) *.gch
 	@./$(BIN_DIR)/$(PROGRAM_NAME)
+
+app_structure:
+	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(IN_DIR)
+	@mkdir -p $(OUT_DIR)
 	
 msg_user:
 	@echo "Executando o makefile do programa" \
@@ -36,11 +44,11 @@ linking: $(OBJS)
 	@$(CC) -o $(BIN_DIR)/$(PROGRAM_NAME) $(OBJS)
 	@echo "Linking executado com sucesso."
 
-main.o: main.cpp
+main.o: $(SRC_FOLDER)/main.cpp
 	@$(CC) $(CFLAGS) main.cpp
 
-TP0.o: TP0.h TP0.cpp
-	@$(CC) $(CFLAGS) TP0.cpp
+TP0.o: $(SRC_FOLDER)/TP0.h $(SRC_FOLDER)/TP0.cpp
+	@$(CC) $(CFLAGS) $(SRC_FOLDER)/TP0.cpp
 
 FileManager.o: $(PAA_LIB_PATH)/FileManager.h $(PAA_LIB_PATH)/FileManager.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/FileManager.cpp
