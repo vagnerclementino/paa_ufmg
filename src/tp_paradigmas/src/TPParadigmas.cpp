@@ -13,6 +13,7 @@
 #include <sstream>
 #include <unistd.h>
 #include "Brain.h"
+#include "TPInstance.h"
 
 namespace PAA {
 
@@ -26,13 +27,18 @@ TPParadigmas::~TPParadigmas() {
 }
 
 void TPParadigmas::run(void ){
+	std::stringstream ss;
 	try {
-			PAA::Brain b (1,2,500);
+
+			PAA::TPInstance instances;
+			std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
 			this->showUserMessage("Iniciando a execução.");
 
-			b.print();
+			instances.load(fileName);
+			ss << "Tamanho da instância " << instances.getSize();
+			this->showUserMessage(ss.str());
 
-
+			instances.print();
 
 
 
@@ -44,7 +50,7 @@ void TPParadigmas::run(void ){
 
 	} catch (const std::exception& e) {
 
-		std::stringstream ss;
+
 		ss << "Erro durante a alocaco de memoria. Tipo de excecao: " << e.what();
 		throw PAA::PAAException(ss.str());
 

@@ -49,6 +49,7 @@ void Brain::print(void){
 	std::cout << "ID: " << this->getID() << std::endl;
 	std::cout << "Weight: " << this->getWeight()<< std::endl;
 	std::cout << "QI: " << this->getQI() << std::endl;
+	std::cout << "********************" << std::endl;
 }
 
 /***********************************************
