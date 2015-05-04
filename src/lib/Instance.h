@@ -8,6 +8,7 @@
 #ifndef INSTANCE_H_
 #define INSTANCE_H_
 #include <list>
+#include <string>
 
 namespace PAA {
 
@@ -23,7 +24,7 @@ protected:
 	void addInstanceItem(const T&);
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
-	virtual void load(void) = 0;
+	virtual void load(std::string&) = 0;
 	virtual void print(void) = 0;
 
 
