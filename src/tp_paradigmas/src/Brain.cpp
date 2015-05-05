@@ -18,15 +18,15 @@ Brain::Brain(int id, int weight, int qi) {
 
 }
 
-int Brain::getID(void){
+int Brain::getID(void) const{
 	return this->id;
 }
 
-int Brain::getQI(void){
+int Brain::getQI(void)const{
 	return this->qi;
 }
 
-int Brain::getWeight(void){
+int Brain::getWeight(void)const{
 
 	return this->weight;
 }
@@ -59,10 +59,58 @@ void Brain::print(void){
  * Por padrão este valor é sempre 1
  *
  * *******************************************/
-int Brain::getCost(void){
+int Brain::getCost(void) const{
 	return 1;
 }
+/**********************************************************
+ * Método que verifica se um Brain é melhor do que outro,
+ * considerando que um Brain é melhor se ele possui um  QI
+ * maior mas com um peso de cérebro menor.
+  *********************************************************/
+bool Brain::operator>(const Brain& other) const{
+    if( (this->getQI() > other.getQI()) && (this->getWeight() < other.getWeight())){
+        return true;
+    }else{
+        return false;
+    }
+}
 
+/*******************************************************************
+ * Verifica se um cerébro é "pior" do que outro. Um cerébro será
+ * pior se ele tiver um QI menor mas um peso de cérebro maior *
+ * ******************************************************************/
+bool Brain::operator<(const Brain& other) const{
+    if( (this->getQI() < other.getQI()) && (this->getWeight() > other.getWeight())){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+ /**************************************************************************************
+  * Verifica se dois cérebros são iguais. Um cerebro A é igual a um cerebro B se eles
+ * possuirem o mesmo QI e o mesmo peso.
+  *********************************************************************************** */
+
+bool Brain::operator==(const Brain& other) const{
+    if( (this->getQI() ==  other.getQI()) && (this->getWeight() == other.getWeight())){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+/***************************************************************************************
+ *  Verifica se dois cerebros são diferentes. Um cerebro A é diferente de um cerebro B
+ *  se o QI de A for diferente do QI de B ou o peso de A for diferente do peso de B *
+ * ************************************************************************************/
+bool Brain::operator!=(const Brain& other) const{
+    if( (this->getQI() != other.getQI()) || (this->getWeight() != other.getWeight())){
+        return true;
+    }else{
+        return false;
+    }
+}
 Brain::~Brain() {
 	// Do nothing.
 }

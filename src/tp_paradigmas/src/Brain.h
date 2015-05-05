@@ -16,14 +16,18 @@ private:
 	int weight; //Peso do Cérebro
 	int qi;		//QI do cérebro
 public:
-	int getID(void);
+	int getID(void) const;
 	void setID(int);
-	int getWeight(void);
+	int getWeight(void) const;
 	void setWeight(int);
-	int getQI(void);
+	int getQI(void) const;
 	void setQI(int);
-	int getCost(void);
+	int getCost(void) const;
 	void print (void);
+    inline bool operator>(const Brain&) const;
+    inline bool operator<(const Brain&) const;
+    inline bool operator==(const Brain&) const;
+    inline bool operator!=(const Brain&) const;
 
 
 
