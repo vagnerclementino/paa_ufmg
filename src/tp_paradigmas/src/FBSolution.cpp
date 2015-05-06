@@ -81,6 +81,11 @@ bool FBSolution::isEmpty(void){
 
 }
 
+void FBSolution::setCost(int newCost){
+
+	PAA::Solution<PAA::Brain>::setCost(newCost);
+}
+
 /**********************************************************************
  * Verifica se uma solução é melhor do que outra.
  * Uma solução A é melhor do que uma solução B se o custo de

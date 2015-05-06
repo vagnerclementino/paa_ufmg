@@ -11,6 +11,8 @@
 #include <iostream>
 #include "TPInstance.h"
 #include <sstream>
+#include <limits>
+#include "../../lib/PAAException.h"
 
 namespace PAA {
 
@@ -22,7 +24,7 @@ FBAlgorithm::FBAlgorithm() {
 FBAlgorithm::~FBAlgorithm() {
 
 }
-void FBAlgorithm::bruteForceSearch(std::vector<int>& vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
+void FBAlgorithm::generateAllSolutions(PAA::TPInstance& instances, std::vector<int>& vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
 
 	std::vector<int>::iterator it;
 	int i;
@@ -31,8 +33,6 @@ void FBAlgorithm::bruteForceSearch(std::vector<int>& vectorSolution,int index, i
 		vectorSolution.at(index) = i;
 
 		if(index == (maxDepth - 1)){
-				//vectorSolution.at(index) = 1;
-				//vectorSolution.at(index) = 0;
 			for(it = vectorSolution.begin(); it != vectorSolution.end(); it++ ){
 				std::cout << (*it);
 
@@ -40,26 +40,58 @@ void FBAlgorithm::bruteForceSearch(std::vector<int>& vectorSolution,int index, i
 			std::cout << std::endl;
 
 	  }else{
-		  bruteForceSearch(vectorSolution, index + 1, maxDepth, solutionList);
+		  generateAllSolutions(instances, vectorSolution, index + 1, maxDepth, solutionList);
 	  }
 
 	}
 }
 
-PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
-	PAA::FBSolution solution;
+void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, std::list<PAA::FBSolution>& solutions){
 
 	std::list<PAA::FBSolution> solutionList;
-	int maxDepth;
 
-	maxDepth = instance.getSize();
+	std::vector<int> solutionVector (instances.getSize());
 
-	std::vector<int> solutionVector (maxDepth);
+	generateAllSolutions(instances, solutionVector,0,instances.getSize(),solutionList);
 
-	bruteForceSearch(solutionVector,0,maxDepth,solutionList);
-
-
-	return solution;
 }
+
+PAA::FBSolution findBestSolution(std::list<PAA::FBSolution>& solutionList){
+
+	std::list<PAA::FBSolution>::iterator it;
+	PAA::FBSolution best;
+
+	//Definindo o custo como menos infinido
+	best.setCost(std::numeric_limits<int>::min());
+
+	for (it = solutionList.begin(); it != solutionList.end(); it++){
+
+		if(it->getCost() > best.getCost()){
+			best = *(it);
+		}
+
+	}
+
+	return (best);
+
+}
+
+PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
+	PAA::FBSolution solution;
+	std::list<PAA::FBSolution> solutionList;
+
+	this->bruteForceSearch(instance, solutionList);
+
+	solution = this->findBestSolution(solutionList);
+
+	if(solution.isValid()){
+		return solution;
+	}else{
+		throw PAA::PAAException ("Não foi possível encontrar uma solução para a instância informada");
+	}
+
+}
+
+
 
 } /* namespace PAA */

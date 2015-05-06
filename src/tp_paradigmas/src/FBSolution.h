@@ -23,6 +23,7 @@ public:
 	bool isValid(void);
 	bool isEmpty(void);
 	bool operator>(FBSolution&);
+	void setCost(int);
 };
 } /* namespace PAA */
 
