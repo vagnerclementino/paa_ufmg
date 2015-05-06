@@ -7,8 +7,12 @@
 
 #ifndef FBSOLUTION_H_
 #define FBSOLUTION_H_
+#include "Brain.h"
+#include "../../lib/Solution.h"
 
-class FBSolution: public PAA::Solution<PAA::Brain> {
+namespace PAA {
+
+class FBSolution: public PAA::Solution<Brain>{
 public:
 	FBSolution();
 	virtual ~FBSolution();
@@ -20,5 +24,6 @@ public:
 	bool isEmpty(void);
 	bool operator>(FBSolution&);
 };
+} /* namespace PAA */
 
 #endif /* FBSOLUTION_H_ */

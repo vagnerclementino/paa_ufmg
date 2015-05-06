@@ -12,7 +12,6 @@
 #include <cstdlib>
 #include "Brain.h"
 
-
 using namespace std;
 
 

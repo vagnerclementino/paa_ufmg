@@ -7,8 +7,10 @@
 
 #include "FBSolution.h"
 #include "Brain.h"
+#include "../../lib/Solution.h"
 #include <list>
-
+#include <iostream>
+namespace PAA {
 FBSolution::FBSolution(){
 
 
@@ -18,7 +20,8 @@ FBSolution::~FBSolution() {
 	// TODO Auto-generated destructor stub
 }
 
-void FBSolution::validateSolution(void){
+
+void FBSolution::validateSolution(void) {
 	std::list<PAA::Brain>::iterator itCurrent;
 	std::list<PAA::Brain>::iterator itNext;
 	std::list<PAA::Brain>::iterator itEnd;
@@ -26,23 +29,37 @@ void FBSolution::validateSolution(void){
 	itEnd	  = PAA::Solution<PAA::Brain>::getEndList();
 
 	for(itCurrent = PAA::Solution<PAA::Brain>::getBeginList(); itCurrent != itEnd; itCurrent++){
-		for(itNext = itCurrent + 1; itNext != itEnd; itNext++){
+		for(itNext = itCurrent; itNext != itEnd; itNext++){
+			if (itCurrent != itNext){
 
-			if ( *(itCurrent) <  *(itNext)){
-				PAA::Solution<PAA::Brain>::setIsValid(false);
-				return;
+
+
+				if ((*itCurrent) < (*itNext)){
+						//Solução inválida
+						PAA::Solution<PAA::Brain>::setIsValid(false);
+						return;
+
+				}
 
 			}
-
 		}
 	}
-
+	//Saiu do loop: a solução é válida!
 	PAA::Solution<PAA::Brain>::setIsValid(true);
 
 
 
 }
 void FBSolution::print(void){
+
+	std::list<PAA::Brain>::iterator it;
+	std::list<PAA::Brain>::iterator itEnd;
+
+	itEnd = PAA::Solution<PAA::Brain>::getEndList();
+	std::cout << PAA::Solution<PAA::Brain>::getCost() << std::endl;
+	for( it = PAA::Solution<PAA::Brain>::getBeginList(); it != itEnd; it++){
+		std::cout<< it->getID() << std::endl;
+	}
 
 }
 int FBSolution::getCost(void){
@@ -79,4 +96,4 @@ bool FBSolution::operator>(FBSolution& other){
 		return false;
 	}
 }
-
+}
