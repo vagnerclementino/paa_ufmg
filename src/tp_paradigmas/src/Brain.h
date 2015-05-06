@@ -24,14 +24,15 @@ public:
 	void setQI(int);
 	int getCost(void) const;
 	void print (void);
-    inline bool operator>(const Brain&) const;
-    inline bool operator<(const Brain&) const;
-    inline bool operator==(const Brain&) const;
-    inline bool operator!=(const Brain&) const;
+    bool operator > (const Brain&) ;
+    bool operator<(const PAA::Brain&);
+    bool operator == (const Brain&) ;
+    bool operator != (const Brain&) ;
 
 
 
 	Brain(int, int, int);
+	Brain();
 	virtual ~Brain();
 };
 

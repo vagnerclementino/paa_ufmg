@@ -17,7 +17,7 @@
 
 namespace PAA {
 
-TPInstance::TPInstance() {
+TPInstance::TPInstance():Instance<PAA::Brain>() {
 	this->fm = new PAA::FileManager();
 	this->setLastInstanceID(0);
 }

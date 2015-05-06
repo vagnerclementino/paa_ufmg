@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "Brain.h"
 #include "TPInstance.h"
+#include "FBAlgorithm.h"
 
 namespace PAA {
 
@@ -28,9 +29,12 @@ TPParadigmas::~TPParadigmas() {
 
 void TPParadigmas::run(void ){
 	std::stringstream ss;
+	PAA::FBAlgorithm fb;
+	PAA::FBSolution solution;
+	PAA::TPInstance instances;
 	try {
 
-			PAA::TPInstance instances;
+
 			std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
 			this->showUserMessage("Iniciando a execução.");
 
@@ -40,8 +44,7 @@ void TPParadigmas::run(void ){
 
 			instances.print();
 
-
-
+			solution = *(fb.execute(instances));
 
 
 			this->showUserMessage("Finalizando a execução.");
