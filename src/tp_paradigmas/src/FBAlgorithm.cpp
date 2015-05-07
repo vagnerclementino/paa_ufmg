@@ -131,16 +131,20 @@ PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
 	std::stringstream ss;
 	std::list<PAA::FBSolution>::iterator it;
 
+	/* **********************************************
+	 * Realiza a busca de toda as soluções possíveis
+	 * de uma dada instância repesentada por
+	 * pela varíavel 'instance'.
+	 * Estas soluções, quando válidas, são inseridas
+	 * na lista 'solutionList'
+	 * ********************************************/
 	this->bruteForceSearch(instance, solutionList);
 
-	std::cout << solutionList.size() << std::endl;
-	std::cout << "Imprimindo todas as soluções" << std::endl;
-	for(it = solutionList.begin(); it != solutionList.end(); it++){
-		it->print();
-
-	}
-
-	std::cout << "MELHOR SOLUÇÃO:" << std::endl;
+	/****************************************************
+	 * Buscando entre todas as soluções válida aquela
+	 * que é a melhor. Melhor neste contexto significa
+	 * a de maior custo ou maior tamanho.
+	 ***************************************************/
 	solution = this->findBestSolution(solutionList);
 
 	return solution;

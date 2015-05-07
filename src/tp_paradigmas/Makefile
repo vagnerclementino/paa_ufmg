@@ -18,6 +18,8 @@ OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/Brain.o \
 	$(SRC_FOLDER)/TPInstance.o \
 	$(SRC_FOLDER)/TPParadigmas.o \
+	$(SRC_FOLDER)/FBSolution.o \
+	$(SRC_FOLDER)/FBAlgorithm.o \
 	$(PAA_LIB_PATH)/FileManager.o \
 	$(PAA_LIB_PATH)/PAAException.o \
 	$(PAA_LIB_PATH)/TrabalhoPratico.o \
@@ -56,12 +58,6 @@ PAAException.o: $(PAA_LIB_PATH)/PAAException.h $(PAA_LIB_PATH)/PAAException.cpp
 TrabalhoPratico.o: TrabalhoPratico.h TrabalhoPratico.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TrabalhoPratico.cpp
 
-#Instance.o: Instance.h
-#	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/Instance.h
-
-#Solution.o: Solution.h
-#	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/Solution.cpp
-
 Brain.o: Brain.h Brain.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/Brain.cpp
 
@@ -69,7 +65,13 @@ TPInstance.o: TPInstance.h TPInstance.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPInstance.cpp
 
 TPParadigmas.o: TPParadigmas.h TPParadigmas.cpp
-	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPParadigmas.cpp				
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPParadigmas.cpp
+	
+FBSolution.o: FBSolution.h FBSolution.cpp
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/FBSolution.cpp
+	
+FBAlgorithm.o: FBAlgorithm.h FBAlgorithm.cpp
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/FBAlgorithm.cpp			
 clean:
 	@echo "Removendo arquivos temporários e o executável..."
 	@rm -f $(OBJS) *.gch $(PROGRAM_NAME)

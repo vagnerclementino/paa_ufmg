@@ -67,7 +67,7 @@ void FBSolution::print(void){
 	ss << "[";
 
 	itEnd = PAA::Solution<PAA::Brain>::getEndList();
-	std::cout << PAA::Solution<PAA::Brain>::getCost() << std::endl;
+
 	for( it = PAA::Solution<PAA::Brain>::getBeginList(); it != itEnd; it++){
 		ss << it->getID() << ",";
 	}
@@ -75,6 +75,7 @@ void FBSolution::print(void){
 	ss.seekp(ss.str().length()-1);
 
 	ss << "]";
+	std::cout << "Tamanho da solução: "  << this->getCost() << std::endl;
 	std::cout << ss.str() << std::endl;
 }
 int FBSolution::getCost(void){
