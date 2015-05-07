@@ -23,7 +23,7 @@ public:
 	PAA::FBSolution execute(PAA::TPInstance&);
 
 private:
-	void generateAllSolutions(std::vector<int> , PAA::TPInstance&, std::vector<int>*,int, int, std::list<PAA::FBSolution>&);
+	void generateAllSolutions(std::vector<int> , int , PAA::TPInstance&, std::vector<int>*,int, int, std::list<PAA::FBSolution>&);
 
 	void bruteForceSearch(PAA::TPInstance&, std::list<PAA::FBSolution>&);
 

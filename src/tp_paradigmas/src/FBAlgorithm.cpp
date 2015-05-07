@@ -26,7 +26,7 @@ FBAlgorithm::~FBAlgorithm() {
 
 
 }
-void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, PAA::TPInstance& instances, std::vector<int>* vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
+void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, int lastID, PAA::TPInstance& instances, std::vector<int>* vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
 
 	std::vector<int>::iterator it;
 	PAA::FBSolution solutionTemp;
@@ -34,7 +34,17 @@ void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, PAA::TPInstanc
 
 	for ( itAlpha = alphabet.begin(); itAlpha != alphabet.end(); itAlpha++){
 
-		vectorSolution->at(index) = *(itAlpha);
+		/*
+		 * Evitando a geração de soluções que possuem
+		 * valores repitidos. Desta forma, apenas serão
+		 * gerados soluções com valores distintos.
+		 * */
+		if(*(itAlpha) != lastID){
+			vectorSolution->at(index) = *(itAlpha);
+			lastID = *(itAlpha);
+		}
+
+
 
 		if(index == (maxDepth - 1)){
 
@@ -45,7 +55,7 @@ void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, PAA::TPInstanc
 			}
 
 		}else{
-		  generateAllSolutions(alphabet, instances, vectorSolution, index + 1, maxDepth, solutionList);
+		  generateAllSolutions(alphabet, lastID, instances, vectorSolution, index + 1, maxDepth, solutionList);
 		}
 
 	}
@@ -68,7 +78,7 @@ void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, std::list<PAA::FB
 
 		pVector = new std::vector<int>(index+1);
 
-		generateAllSolutions(alphabet, instances, pVector,0,index+1,solutionList);
+		generateAllSolutions(alphabet, std::numeric_limits<int>::min(), instances, pVector,0,index+1,solutionList);
 
 		delete pVector;
 
