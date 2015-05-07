@@ -13,6 +13,7 @@
 #include <vector>
 #include <list>
 #include "TPInstance.h"
+#include <limits>
 namespace PAA {
 
 class FBAlgorithm{
@@ -28,7 +29,11 @@ private:
 
 	PAA::FBSolution findBestSolution(std::list<PAA::FBSolution>&);
 
+	PAA::FBSolution buildSolution(std::vector<int>&, PAA::TPInstance&);
+
+
 };
+
 
 } /* namespace PAA */
 

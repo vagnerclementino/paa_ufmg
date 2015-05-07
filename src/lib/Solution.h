@@ -15,7 +15,8 @@ namespace PAA {
 template <class T> class Solution {
 private:
 	int cost;
-	bool isValidSolution;
+	bool isValidSolution; //True if solution is valid, otherwise False
+	bool isItValidated;  //Verify if a solution was validated, if so, another validation is not run
 	std::list<T> solutionList;
 protected:
 	void setCost(int);
@@ -24,9 +25,12 @@ protected:
 	bool isValid(void);
 	bool isEmpty(void);
 	void setIsValid(bool);
+	void setIsItValidated(bool);
+	bool itWasValidated(void);
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
 	void calculeCost(const T&);
+
 
 	virtual void validateSolution(void) = 0;
 	virtual void print(void) = 0;
@@ -57,7 +61,14 @@ template<class T> void Solution<T>::setCost(int newCost){
 }
 
 template<class T> void Solution<T>::addSolutionItem(const T& solutionItem){
+	int currentCost;
 	this->solutionList.push_back(solutionItem);
+	//Atualizando o custo
+	currentCost = this->getCost();
+	currentCost = currentCost + solutionItem.getCost();
+	this->setCost(currentCost);
+
+
 }
 
 template<class T> bool Solution<T>::isValid(void){
@@ -70,6 +81,11 @@ template<class T> void Solution<T>::setIsValid(bool newIsValid){
 
 	this->isValidSolution = newIsValid;
 
+}
+
+template<class T> bool Solution<T>::itWasValidated(void){
+
+	return this->isItValidated;
 }
 
 template<class T> typename std::list<T>::iterator Solution<T>::getBeginList(){
@@ -91,11 +107,16 @@ template<class T> bool Solution<T>::isEmpty(void){
 	return this->solutionList.empty();
 }
 
+template<class T> void Solution<T>::setIsItValidated(bool newSituation){
+
+	this->isItValidated = newSituation;
+}
 
 template<class T> Solution<T>::Solution(){
 	this->solutionList = std::list<T> ();
 	this->setCost(0);
 	this->setIsValid(false);
+	this->setIsItValidated(false);
 }
 
 template<class T> Solution<T>::~Solution(){

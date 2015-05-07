@@ -9,6 +9,7 @@
 #define INSTANCE_H_
 #include <list>
 #include <string>
+#include <iterator>
 
 namespace PAA {
 
@@ -22,6 +23,8 @@ protected:
 	void incrementSize(void);
 	void decreaseSize(void);
 	void addInstanceItem(const T&);
+	T getInstanceItem(int);
+	T getByID(int);
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
 	virtual void load(std::string&) = 0;
@@ -76,6 +79,33 @@ template<class T> typename std::list<T>::iterator Instance<T>:: getEndList(){
 		}
 }
 
+template<class T> T Instance<T>::getInstanceItem(int offSet){
+
+	if(offSet >= 0 && offSet <= this->getSize()){
+
+		typename std::list<T>::iterator it;
+		it = this->getBeginList();
+		if(offSet > 0){
+			//Increase the iterator by offset
+			std::advance (it,offSet);
+		}
+		return *(it);
+	}
+}
+
+template<class T> T Instance<T>::getByID(int idItem){
+	typename std::list<T>::iterator it;
+	T findItem;
+
+	for(it = this->instanceList->begin(); it = this->instanceList->begin(); it++){
+
+		if(it->getID == idItem){
+			findItem = *(it);
+		}
+
+	}
+	return findItem;
+}
 
 template<class T> Instance<T>::Instance() {
 

@@ -16,14 +16,19 @@ class FBSolution: public PAA::Solution<Brain>{
 public:
 	FBSolution();
 	virtual ~FBSolution();
-	void validateSolution(void);
+
 	void print(void);
 	int getCost(void);
 	void addToSolution(const PAA::Brain&);
 	bool isValid(void);
+	void setIsValid(bool);
 	bool isEmpty(void);
+	bool isItValidated(void);
 	bool operator>(FBSolution&);
 	void setCost(int);
+private:
+	void validateSolution(void);
+
 };
 } /* namespace PAA */
 

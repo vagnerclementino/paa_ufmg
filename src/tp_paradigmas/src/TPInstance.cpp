@@ -124,4 +124,8 @@ int TPInstance::getSize(void){
 	return Instance::getSize();
 }
 
+PAA::Brain TPInstance::getInstanceItem(int offSet){
+	return PAA::Instance<PAA::Brain>::getInstanceItem(offSet);
+}
+
 } /* namespace PAA */

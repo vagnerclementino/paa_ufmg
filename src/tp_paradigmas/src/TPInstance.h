@@ -24,6 +24,7 @@ private:
 	int getInstanceID(void);
 
 
+
 public:
 	TPInstance();
 	virtual ~TPInstance();
@@ -32,6 +33,7 @@ public:
 	//Retorna o nome do qual as instancias do Tabalho serão lidas
 	std::string getInstanceFileName();
 	int getSize(void);
+	PAA::Brain getInstanceItem(int);
 
 
 

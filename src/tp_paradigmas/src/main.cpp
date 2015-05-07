@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
     try {
     	PAA::TPParadigmas tp (argc,argv);
     	tp.run();
+
     	//Exibindo os dados da execução
     	tp.showStatistics();
     	exit(EXIT_SUCCESS);

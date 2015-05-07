@@ -72,6 +72,16 @@ void FBSolution::addToSolution(const PAA::Brain& b){
 }
 bool FBSolution::isValid(void){
 
+	if (this->getCost() == 0){
+
+		this->setIsValid(false);
+
+	}else if(!this->isItValidated()){
+		//if it was not validated. Do it
+		this->validateSolution();
+		this->setIsItValidated(true);
+	}
+
 	return PAA::Solution<PAA::Brain>::isValid();
 
 }
@@ -79,6 +89,15 @@ bool FBSolution::isEmpty(void){
 
 	return PAA::Solution<PAA::Brain>::isEmpty();
 
+}
+
+bool FBSolution::isItValidated(void){
+	PAA::Solution<PAA::Brain>::itWasValidated();
+}
+
+void FBSolution::setIsValid(bool isValid){
+
+	PAA::Solution<PAA::Brain>::setIsValid(isValid);
 }
 
 void FBSolution::setCost(int newCost){

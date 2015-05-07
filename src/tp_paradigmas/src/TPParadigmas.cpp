@@ -34,7 +34,7 @@ void TPParadigmas::run(void ){
 	PAA::TPInstance instances;
 	try {
 
-            std::string fileName = "/home/vagner/Vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
+            std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
             this->showUserMessage("Iniciando a execução.");
 
 
@@ -45,6 +45,12 @@ void TPParadigmas::run(void ){
 			instances.print();
 
 			solution = fb.execute(instances);
+
+			if(solution.isValid()){
+				solution.print();
+			}else{
+				this->showUserMessage("Não foi encontrada um solução para a instância informada.");
+			}
 
 
 			this->showUserMessage("Finalizando a execução.");
