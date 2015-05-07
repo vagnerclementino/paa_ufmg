@@ -97,7 +97,7 @@ template<class T> T Instance<T>::getByID(int idItem){
 	typename std::list<T>::iterator it;
 	T findItem;
 
-	for(it = this->instanceList->begin(); it = this->instanceList->begin(); it++){
+	for(it = this->instanceList->begin(); it != this->instanceList->begin(); it++){
 
 		if(it->getID == idItem){
 			findItem = *(it);

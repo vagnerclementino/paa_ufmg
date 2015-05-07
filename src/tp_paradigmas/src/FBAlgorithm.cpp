@@ -26,25 +26,26 @@ FBAlgorithm::~FBAlgorithm() {
 
 
 }
-void FBAlgorithm::generateAllSolutions(PAA::TPInstance& instances, std::vector<int>& vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
+void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, PAA::TPInstance& instances, std::vector<int>* vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
 
 	std::vector<int>::iterator it;
-	int i;
 	PAA::FBSolution solutionTemp;
+	std::vector<int>::iterator itAlpha; // iterator for alphabet
 
-	for (i= 1; i <= 2; i++){
-		vectorSolution.at(index) = i;
+	for ( itAlpha = alphabet.begin(); itAlpha != alphabet.end(); itAlpha++){
+
+		vectorSolution->at(index) = *(itAlpha);
 
 		if(index == (maxDepth - 1)){
 
-			solutionTemp = this->buildSolution(vectorSolution,instances);
+			solutionTemp = buildSolution(vectorSolution,instances);
 
 			if(solutionTemp.isValid()){
 				solutionList.push_back(solutionTemp);
 			}
 
 		}else{
-		  generateAllSolutions(instances, vectorSolution, index + 1, maxDepth, solutionList);
+		  generateAllSolutions(alphabet, instances, vectorSolution, index + 1, maxDepth, solutionList);
 		}
 
 	}
@@ -56,11 +57,18 @@ void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, std::list<PAA::FB
 	std::vector<int>* pVector;
 	int index;
 
+	/*
+	 * Um alfabeto, será o conjunto com todos os ID dos
+	 * cerebros
+	 *
+	 * */
+	std::vector<int> alphabet = instances.getIdList();
+
 	for (index = 0; index <= (maxSize-1); index++){
 
 		pVector = new std::vector<int>(index+1);
 
-		generateAllSolutions(instances, *(pVector),0,index+1,solutionList);
+		generateAllSolutions(alphabet, instances, pVector,0,index+1,solutionList);
 
 		delete pVector;
 
@@ -94,17 +102,17 @@ PAA::FBSolution FBAlgorithm::findBestSolution(std::list<PAA::FBSolution>& soluti
 
 }
 
-PAA::FBSolution FBAlgorithm::buildSolution(std::vector<int>& solutionCoding, PAA::TPInstance& instanceList){
+PAA::FBSolution FBAlgorithm::buildSolution(std::vector<int>* solutionCoding, PAA::TPInstance & instanceList){
 	PAA::FBSolution solution;
 	PAA::Brain brain;
 
 	std::vector<int>::iterator it;
 	int offSet = 0;
 
-	for(it = solutionCoding.begin(); it != solutionCoding.end(); it++){
+	for(it = solutionCoding->begin(); it != solutionCoding->end(); it++){
 		offSet = *(it);
 
-		brain = instanceList.getInstanceItem(offSet);
+		brain = instanceList.getInstanceItem((offSet-1));
 
 		solution.addToSolution(brain);
 
@@ -129,10 +137,10 @@ PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
 	std::cout << "Imprimindo todas as soluções" << std::endl;
 	for(it = solutionList.begin(); it != solutionList.end(); it++){
 		it->print();
-		std::cout << "xxxx" << std::endl;
+
 	}
 
-
+	std::cout << "MELHOR SOLUÇÃO:" << std::endl;
 	solution = this->findBestSolution(solutionList);
 
 	return solution;

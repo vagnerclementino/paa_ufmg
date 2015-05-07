@@ -128,4 +128,21 @@ PAA::Brain TPInstance::getInstanceItem(int offSet){
 	return PAA::Instance<PAA::Brain>::getInstanceItem(offSet);
 }
 
+std::vector<int> TPInstance::getIdList(void){
+	std::list<PAA::Brain>::iterator it;
+	std::list<PAA::Brain>::iterator itEnd;
+	std::vector<int> idList (this->getSize());
+	int index = 0;
+
+
+	itEnd = PAA::Instance<PAA::Brain>::getEndList();
+
+	for(it =PAA::Instance<PAA::Brain>::getBeginList(); it != itEnd; it++ ){
+
+		idList.at(index) = it->getID();
+		index++;
+
+	}
+	return idList;
+}
 } /* namespace PAA */

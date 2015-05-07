@@ -34,8 +34,14 @@ void TPParadigmas::run(void ){
 	PAA::TPInstance instances;
 	try {
 
-            std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
+            std::string fileName = "/home/vagner/Vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
             this->showUserMessage("Iniciando a execução.");
+            PAA::Brain b2 (2,6000,2100);
+            PAA::Brain b3 (3,500,2000);
+
+            if(b2 < b3){
+            	std::cout << "Invalido" << std::endl;
+            }
 
 
 			instances.load(fileName);

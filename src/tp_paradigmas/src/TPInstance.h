@@ -25,6 +25,7 @@ private:
 
 
 
+
 public:
 	TPInstance();
 	virtual ~TPInstance();
@@ -34,9 +35,7 @@ public:
 	std::string getInstanceFileName();
 	int getSize(void);
 	PAA::Brain getInstanceItem(int);
-
-
-
+	std::vector<int> getIdList();
 };
 
 } /* namespace PAA */

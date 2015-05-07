@@ -10,6 +10,7 @@
 #include "../../lib/Solution.h"
 #include <list>
 #include <iostream>
+#include <sstream>
 namespace PAA {
 FBSolution::FBSolution(){
 
@@ -34,18 +35,25 @@ void FBSolution::validateSolution(void) {
 
 
 
-				if ((*itCurrent) < (*itNext)){
-						//Solução inválida
-						PAA::Solution<PAA::Brain>::setIsValid(false);
-						return;
+				if ((*itCurrent) > (*itNext)){
+						//Solução Válida
 
+
+
+				}else{
+					PAA::Solution<PAA::Brain>::setIsValid(false);
+					return;
 				}
 
 			}
 		}
 	}
-	//Saiu do loop: a solução é válida!
-	PAA::Solution<PAA::Brain>::setIsValid(true);
+
+	if(itCurrent == itEnd){
+		//Saiu do loop: a solução é válida!
+		PAA::Solution<PAA::Brain>::setIsValid(true);
+	}
+
 
 
 
@@ -54,13 +62,20 @@ void FBSolution::print(void){
 
 	std::list<PAA::Brain>::iterator it;
 	std::list<PAA::Brain>::iterator itEnd;
+	std::stringstream ss;
+
+	ss << "[";
 
 	itEnd = PAA::Solution<PAA::Brain>::getEndList();
 	std::cout << PAA::Solution<PAA::Brain>::getCost() << std::endl;
 	for( it = PAA::Solution<PAA::Brain>::getBeginList(); it != itEnd; it++){
-		std::cout<< it->getID() << std::endl;
+		ss << it->getID() << ",";
 	}
+	//Removendo o último caractere da stream
+	ss.seekp(ss.str().length()-1);
 
+	ss << "]";
+	std::cout << ss.str() << std::endl;
 }
 int FBSolution::getCost(void){
 
@@ -92,7 +107,7 @@ bool FBSolution::isEmpty(void){
 }
 
 bool FBSolution::isItValidated(void){
-	PAA::Solution<PAA::Brain>::itWasValidated();
+	PAA::Solution<PAA::Brain>::wasValidated();
 }
 
 void FBSolution::setIsValid(bool isValid){

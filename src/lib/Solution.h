@@ -26,7 +26,7 @@ protected:
 	bool isEmpty(void);
 	void setIsValid(bool);
 	void setIsItValidated(bool);
-	bool itWasValidated(void);
+	bool wasValidated(void);
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
 	void calculeCost(const T&);
@@ -83,7 +83,7 @@ template<class T> void Solution<T>::setIsValid(bool newIsValid){
 
 }
 
-template<class T> bool Solution<T>::itWasValidated(void){
+template<class T> bool Solution<T>::wasValidated(void){
 
 	return this->isItValidated;
 }
