@@ -14,13 +14,31 @@
 namespace PAA {
 
 class GreedyAlgorithm {
+
+private:
+	std::vector<PAA::TPSolution*> *pSolutionPile;
+	int nextFreePile; 		//Armazena a próxima pilha a ser preenchida
+	int maxSequenceLength;	//A maior sequeência encontrada até o momento
+	int bestSolution;		//Indice da pilha com a melhor solução até o momento.
+	int maxOfPiles;			//O número máximo de pilhas a ser criado. Geralmente igual ao tamanha da instância.
+protected:
+
+   int greedyChoice(PAA::TPInstance&);
+   void initialize();
+   int getNextFreePile(void);
+   void setNextFreePile(int);
+   int getMaxSequenceLength(void);
+   void setMaxSequenceLength(int);
+   int getBestSolution(void);
+   void setBestSolution(int);
+
+
+
+
 public:
 	GreedyAlgorithm();
 	virtual ~GreedyAlgorithm();
 	PAA::TPSolution execute(PAA::TPInstance&);
-private:
-
-	PAA::Brain greedyChoice(PAA::TPInstance&);
 };
 
 } /* namespace PAA */

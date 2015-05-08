@@ -25,7 +25,6 @@ public:
 	bool isItValidated(void);
 	bool operator>(TPSolution&);
 	void setCost(int);
-private:
 	void validateSolution(void);
 };
 

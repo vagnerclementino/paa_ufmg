@@ -23,41 +23,10 @@ FBSolution::~FBSolution() {
 
 
 void FBSolution::validateSolution(void) {
-	std::list<PAA::Brain>::iterator itCurrent;
-	std::list<PAA::Brain>::iterator itNext;
-	std::list<PAA::Brain>::iterator itEnd;
 
-	itEnd	  = PAA::Solution<PAA::Brain>::getEndList();
-
-	for(itCurrent = PAA::Solution<PAA::Brain>::getBeginList(); itCurrent != itEnd; itCurrent++){
-		for(itNext = itCurrent; itNext != itEnd; itNext++){
-			if (itCurrent != itNext){
-
-
-
-				if ((*itCurrent) > (*itNext)){
-						//Solução Válida
-
-
-
-				}else{
-					PAA::Solution<PAA::Brain>::setIsValid(false);
-					return;
-				}
-
-			}
-		}
-	}
-
-	if(itCurrent == itEnd){
-		//Saiu do loop: a solução é válida!
-		PAA::Solution<PAA::Brain>::setIsValid(true);
-	}
-
-
-
-
+	TPSolution::validateSolution();
 }
+
 void FBSolution::print(void){
 
 	TPSolution::print();
