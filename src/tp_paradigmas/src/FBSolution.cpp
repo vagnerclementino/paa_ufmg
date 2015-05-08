@@ -60,65 +60,40 @@ void FBSolution::validateSolution(void) {
 }
 void FBSolution::print(void){
 
-	std::list<PAA::Brain>::iterator it;
-	std::list<PAA::Brain>::iterator itEnd;
-	std::stringstream ss;
-
-	ss << "[";
-
-	itEnd = PAA::Solution<PAA::Brain>::getEndList();
-
-	for( it = PAA::Solution<PAA::Brain>::getBeginList(); it != itEnd; it++){
-		ss << it->getID() << ",";
-	}
-	//Removendo o último caractere da stream
-	ss.seekp(ss.str().length()-1);
-
-	ss << "]";
-	std::cout << "Tamanho da solução: "  << this->getCost() << std::endl;
-	std::cout << ss.str() << std::endl;
+	TPSolution::print();
 }
 int FBSolution::getCost(void){
 
-	return PAA::Solution<PAA::Brain>::getCost();
+	return TPSolution::getCost();
 }
 void FBSolution::addToSolution(const PAA::Brain& b){
 
-	PAA::Solution<PAA::Brain>::addSolutionItem(b);
+	TPSolution::addToSolution(b);
 }
 bool FBSolution::isValid(void){
 
-	if (this->getCost() == 0){
-
-		this->setIsValid(false);
-
-	}else if(!this->isItValidated()){
-		//if it was not validated. Do it
-		this->validateSolution();
-		this->setIsItValidated(true);
-	}
-
-	return PAA::Solution<PAA::Brain>::isValid();
+	return TPSolution::isValid();
 
 }
 bool FBSolution::isEmpty(void){
 
-	return PAA::Solution<PAA::Brain>::isEmpty();
+	return TPSolution::isEmpty();
 
 }
 
 bool FBSolution::isItValidated(void){
-	PAA::Solution<PAA::Brain>::wasValidated();
+
+	return TPSolution::isItValidated();
 }
 
 void FBSolution::setIsValid(bool isValid){
 
-	PAA::Solution<PAA::Brain>::setIsValid(isValid);
+	TPSolution::setIsValid(isValid);
 }
 
 void FBSolution::setCost(int newCost){
 
-	PAA::Solution<PAA::Brain>::setCost(newCost);
+	TPSolution::setCost(newCost);
 }
 
 /**********************************************************************
@@ -130,10 +105,9 @@ void FBSolution::setCost(int newCost){
  * ********************************************************************/
 bool FBSolution::operator>(FBSolution& other){
 
-	if (PAA::Solution<PAA::Brain>::getCost() > other.getCost()  ){
-		return true;
-	}else{
-		return false;
-	}
+	return TPSolution::operator >(other);
+
 }
-}
+
+
+}/* namespace PAA */

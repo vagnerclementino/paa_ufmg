@@ -1,22 +1,21 @@
 /*
- * FBSolution.h
+ * TPSolution.h
  *
- *  Created on: 05/05/2015
+ *  Created on: 07/05/2015
  *      Author: vagner
  */
 
-#ifndef FBSOLUTION_H_
-#define FBSOLUTION_H_
-#include "TPSolution.h"
+#ifndef TPSOLUTION_H_
+#define TPSOLUTION_H_
 #include "Brain.h"
+#include "../../lib/Solution.h"
 
 namespace PAA {
 
-class FBSolution: public PAA::TPSolution {
+class TPSolution: public Solution<PAA::Brain> {
 public:
-	FBSolution();
-	virtual ~FBSolution();
-
+	TPSolution();
+	virtual ~TPSolution();
 	void print(void);
 	int getCost(void);
 	void addToSolution(const PAA::Brain&);
@@ -24,12 +23,12 @@ public:
 	void setIsValid(bool);
 	bool isEmpty(void);
 	bool isItValidated(void);
-	bool operator>(FBSolution&);
+	bool operator>(TPSolution&);
 	void setCost(int);
 private:
 	void validateSolution(void);
-
 };
+
 } /* namespace PAA */
 
-#endif /* FBSOLUTION_H_ */
+#endif /* TPSOLUTION_H_ */

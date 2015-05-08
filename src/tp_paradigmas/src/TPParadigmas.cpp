@@ -15,6 +15,7 @@
 #include "Brain.h"
 #include "TPInstance.h"
 #include "FBAlgorithm.h"
+#include "FBSolution.h"
 
 namespace PAA {
 
@@ -30,11 +31,11 @@ TPParadigmas::~TPParadigmas() {
 void TPParadigmas::run(void ){
 	std::stringstream ss;
 	PAA::FBAlgorithm fb;
-	PAA::FBSolution solution;
+	PAA::TPSolution solution;
 	PAA::TPInstance instances;
 	try {
 
-            std::string fileName = "/home/vagner/Vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
+            std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
             this->showUserMessage("Iniciando a execução.");
 
 			instances.load(fileName);
