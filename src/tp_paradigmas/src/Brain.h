@@ -29,8 +29,6 @@ public:
     bool operator == (const Brain&) ;
     bool operator != (const Brain&) ;
 
-
-
 	Brain(int, int, int);
 	Brain();
 	virtual ~Brain();

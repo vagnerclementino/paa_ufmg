@@ -16,6 +16,7 @@
 #include "TPInstance.h"
 #include "FBAlgorithm.h"
 #include "FBSolution.h"
+#include "GreedyAlgorithm.h"
 
 namespace PAA {
 
@@ -31,11 +32,12 @@ TPParadigmas::~TPParadigmas() {
 void TPParadigmas::run(void ){
 	std::stringstream ss;
 	PAA::FBAlgorithm fb;
+	PAA::GreedyAlgorithm* greedy;
 	PAA::TPSolution solution;
 	PAA::TPInstance instances;
 	try {
 
-            std::string fileName = "/home/vagner/Vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
+            std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
             this->showUserMessage("Iniciando a execução.");
 
 			instances.load(fileName);
@@ -44,7 +46,11 @@ void TPParadigmas::run(void ){
 
 			//instances.print();
 
-			solution = fb.execute(instances);
+			//solution = fb.execute(instances);
+
+			greedy = new PAA::GreedyAlgorithm(instances.getSize());
+
+			solution = greedy->execute(instances);
 
 			if(solution.isValid()){
 				solution.print();
@@ -57,6 +63,9 @@ void TPParadigmas::run(void ){
 			this->showUserMessage("Finalizando a execução.");
 
 			this->setFinalTime();
+
+			delete greedy;
+
 
 	} catch (const std::exception& e) {
 

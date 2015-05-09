@@ -23,20 +23,21 @@ private:
 	int maxOfPiles;			//O número máximo de pilhas a ser criado. Geralmente igual ao tamanha da instância.
 protected:
 
-   int greedyChoice(PAA::TPInstance&);
+   int greedyChoice(PAA::Brain&);
    void initialize();
    int getNextFreePile(void);
    void setNextFreePile(int);
    int getMaxSequenceLength(void);
    void setMaxSequenceLength(int);
-   int getBestSolution(void);
-   void setBestSolution(int);
-
-
-
+   int getBestSolutionIndex(void);
+   void setBestSolutionIndex(int);
+   int getMaxOfPiles(void);
+   void setMaxOfPiles(int);
+   void addToPile(int, PAA::Brain&);
+   PAA::TPSolution getBestSolution(void);
 
 public:
-	GreedyAlgorithm();
+	GreedyAlgorithm(int);
 	virtual ~GreedyAlgorithm();
 	PAA::TPSolution execute(PAA::TPInstance&);
 };

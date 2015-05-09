@@ -35,6 +35,8 @@ public:
 	std::string getInstanceFileName();
 	int getSize(void);
 	PAA::Brain getInstanceItem(int);
+	bool hasMore(void);
+	PAA::Brain getNextBrain();
 	std::vector<int> getIdList();
 };
 

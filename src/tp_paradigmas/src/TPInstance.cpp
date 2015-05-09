@@ -74,6 +74,10 @@ TPInstance::~TPInstance() {
 
 	 }
 
+	 Instance<PAA::Brain>::setNextItem(this->getBeginList());
+
+
+
 }
 
 void TPInstance::setLastInstanceID(int newID){
@@ -144,5 +148,16 @@ std::vector<int> TPInstance::getIdList(void){
 
 	}
 	return idList;
+}
+
+bool TPInstance::hasMore(){
+
+	return PAA::Instance<PAA::Brain>::hasMore();
+}
+
+PAA::Brain TPInstance::getNextBrain(void){
+
+	return PAA::Instance<PAA::Brain>::getNextItem();
+
 }
 } /* namespace PAA */
