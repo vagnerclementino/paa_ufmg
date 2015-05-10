@@ -84,7 +84,7 @@ bool Brain::operator>(const Brain& other) {
  * pior se ele tiver um QI menor mas um peso de cérebro maior *
  * ******************************************************************/
 bool Brain::operator<(const Brain& other) {
-    if( (this->getQI() < other.getQI()) && (this->getWeight() > other.getWeight())){
+    if (this->getQI() > other.getQI() ){
         return true;
     }else{
         return false;

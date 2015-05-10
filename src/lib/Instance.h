@@ -31,6 +31,7 @@ protected:
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
 	bool hasMore(void);
+	void sort(void);
 	virtual void load(std::string&) = 0;
 	virtual void print(void) = 0;
 
@@ -133,7 +134,11 @@ template<class T> void Instance<T>::setNextItem(typename std::list<T>::iterator 
 
 	this->nextItem = it;
 }
+template<class T> void Instance<T>::sort(void){
 
+	this->instanceList->sort();
+	this->nextItem = this->getBeginList();
+}
 template<class T> Instance<T>::Instance() {
 
 	this->instanceList = new std::list<T>();

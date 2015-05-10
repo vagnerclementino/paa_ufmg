@@ -36,8 +36,11 @@ public:
 	int getSize(void);
 	PAA::Brain getInstanceItem(int);
 	bool hasMore(void);
+	void sort (void);
 	PAA::Brain getNextBrain();
 	std::vector<int> getIdList();
+	std::list<PAA::Brain>::iterator getBeginList();
+	std::list<PAA::Brain>::iterator getEndList();
 };
 
 } /* namespace PAA */

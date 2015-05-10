@@ -44,13 +44,19 @@ void TPParadigmas::run(void ){
 			ss << "Tamanho da instância " << instances.getSize();
 			this->showUserMessage(ss.str());
 
-			//instances.print();
+			instances.print();
 
-			//solution = fb.execute(instances);
+			this->showUserMessage("Lista Ordenada");
+
+			instances.sort();
+
+			instances.print();
 
 			greedy = new PAA::GreedyAlgorithm(instances.getSize());
 
 			solution = greedy->execute(instances);
+
+			//solution.print();
 
 			if(solution.isValid()){
 				solution.print();

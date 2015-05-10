@@ -17,6 +17,7 @@ class GreedyAlgorithm {
 
 private:
 	std::vector<PAA::TPSolution*> *pSolutionPile;
+	bool isAllEmpty;		//Verifica se todas as pilhas estão vazias. Utilizado para  a primeira execução
 	int nextFreePile; 		//Armazena a próxima pilha a ser preenchida
 	int maxSequenceLength;	//A maior sequeência encontrada até o momento
 	int bestSolution;		//Indice da pilha com a melhor solução até o momento.
@@ -34,7 +35,11 @@ protected:
    int getMaxOfPiles(void);
    void setMaxOfPiles(int);
    void addToPile(int, PAA::Brain&);
+   bool getIsAllEmpty(void);
+   void setIsAllEmpty(bool);
+   PAA::Brain getTopBrain(int);
    PAA::TPSolution getBestSolution(void);
+
 
 public:
 	GreedyAlgorithm(int);

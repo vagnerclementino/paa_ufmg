@@ -23,9 +23,12 @@ public:
 	void setIsValid(bool);
 	bool isEmpty(void);
 	bool isItValidated(void);
+	void setWasValidated(bool);
 	bool operator>(TPSolution&);
+	PAA::Brain getLastItem(void);
 	void setCost(int);
 	void validateSolution(void);
+
 };
 
 } /* namespace PAA */

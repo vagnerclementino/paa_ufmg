@@ -70,8 +70,17 @@ bool TPSolution::isEmpty(void){
 }
 
 bool TPSolution::isItValidated(void){
-	PAA::Solution<PAA::Brain>::wasValidated();
+
+	return PAA::Solution<PAA::Brain>::getWasValidated();
 }
+
+void TPSolution::setWasValidated(bool wasValidated){
+
+	PAA::Solution<PAA::Brain>::setIsItValidated(wasValidated);
+
+};
+
+
 
 void TPSolution::setIsValid(bool isValid){
 
@@ -81,6 +90,12 @@ void TPSolution::setIsValid(bool isValid){
 void TPSolution::setCost(int newCost){
 
 	PAA::Solution<PAA::Brain>::setCost(newCost);
+}
+
+PAA::Brain TPSolution::getLastItem(void){
+
+	return PAA::Solution<PAA::Brain>::getLastItem();
+
 }
 
 /**********************************************************************

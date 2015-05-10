@@ -21,6 +21,7 @@ OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/FBSolution.o \
 	$(SRC_FOLDER)/FBAlgorithm.o \
 	$(SRC_FOLDER)/TPSolution.o \
+	$(SRC_FOLDER)/GreedyAlgorithm.o \
 	$(PAA_LIB_PATH)/FileManager.o \
 	$(PAA_LIB_PATH)/PAAException.o \
 	$(PAA_LIB_PATH)/TrabalhoPratico.o \
@@ -75,7 +76,10 @@ FBAlgorithm.o: FBAlgorithm.h FBAlgorithm.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/FBAlgorithm.cpp
 	
 TPSolution.o: TPSolution.h TPSolution.cpp
-	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPSolution.cpp				
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPSolution.cpp
+	
+TPSolution.o: GreedyAlgorithm.h GreedyAlgorithm.cpp
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/GreedyAlgorithm.cpp	
 clean:
 	@echo "Removendo arquivos temporários e o executável..."
 	@rm -f $(OBJS) *.gch $(PROGRAM_NAME)

@@ -26,9 +26,11 @@ protected:
 	bool isEmpty(void);
 	void setIsValid(bool);
 	void setIsItValidated(bool);
-	bool wasValidated(void);
+	bool getWasValidated(void);
+	void setWasValidated(bool);
 	typename std::list<T>::iterator getBeginList();
 	typename std::list<T>::iterator getEndList();
+	T getLastItem(void);
 	void calculeCost(const T&);
 
 
@@ -83,9 +85,14 @@ template<class T> void Solution<T>::setIsValid(bool newIsValid){
 
 }
 
-template<class T> bool Solution<T>::wasValidated(void){
+template<class T> bool Solution<T>::getWasValidated(void){
 
 	return this->isItValidated;
+}
+
+template<class T> void Solution<T>::setWasValidated(bool newSituation){
+
+	this->isItValidated = newSituation;
 }
 
 template<class T> typename std::list<T>::iterator Solution<T>::getBeginList(){
@@ -111,7 +118,13 @@ template<class T> void Solution<T>::setIsItValidated(bool newSituation){
 
 	this->isItValidated = newSituation;
 }
-
+template<class T>  T Solution<T>::getLastItem(void){
+	T item;
+	if(!this->solutionList.empty()){
+		item = (this->solutionList.back());
+	}
+	return item;
+}
 template<class T> Solution<T>::Solution(){
 	this->solutionList = std::list<T> ();
 	this->setCost(0);

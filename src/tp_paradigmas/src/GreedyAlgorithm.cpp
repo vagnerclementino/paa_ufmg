@@ -129,6 +129,16 @@ void GreedyAlgorithm::setMaxOfPiles(int maxPiles){
 	}
 }
 
+bool GreedyAlgorithm::getIsAllEmpty(void){
+
+	return this->isAllEmpty;
+
+}
+void GreedyAlgorithm::setIsAllEmpty(bool newSituation){
+
+	this->isAllEmpty = newSituation;
+}
+
 void GreedyAlgorithm::addToPile(int pileIndex, PAA::Brain& b){
 
 
@@ -181,11 +191,13 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 	std::list<PAA::Brain>::iterator itListBrain;
 	std::list<PAA::Brain>::iterator endList;
 	PAA::Brain b;
-	int pileIndex;
+	int pileIndex = 0;
 
-	while(instances.hasMore()){
+	endList = instances.getEndList();
 
-		b = instances.getNextBrain();
+	for(itListBrain = instances.getBeginList(); itListBrain != endList; itListBrain++){
+
+		b = *(itListBrain);
 
 		pileIndex = this->greedyChoice(b);
 
@@ -194,18 +206,82 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 
 	greedySolution = this->getBestSolution();
 
+	/**Informando que a solução já foi validada
+	 * Não sendo necessário a chamada da função de
+	 * validação.
+	 */
+	greedySolution.setWasValidated(true);
+
+
 	return greedySolution;
 }
 
+PAA::Brain GreedyAlgorithm::getTopBrain(int pileIndex){
+	std::stringstream ss;
+
+	try {
+
+		 return ( (this->pSolutionPile->at(pileIndex))->getLastItem() );
+
+	} catch (const std::out_of_range& oor) {
+
+		ss << "Erro: o indice informado " << pileIndex << " está fora do limite. Detalhes: " << oor.what() << std::endl;
+
+		throw PAA::PAAException(ss.str());
+	}
+
+}
 int GreedyAlgorithm::greedyChoice(PAA::Brain& b){
 
-	int pileIndex;
+	int pileIndex = 0;
+	int i = 0;
+	PAA::Brain topBrain;
+	PAA::Brain maxCurrentCandidade;
+	bool isCandidateFound = false;
+	int indexMaxCandidate = 0;
+
+	if(this->getIsAllEmpty()){
+		//Primeira execução. Todas as pilhas estão limpa
+		indexMaxCandidate = this->getNextFreePile();
+		isCandidateFound = true;
+		this->setNextFreePile(pileIndex + 1);
+		//Informando que existe pelo menos uma pilha vazia
+		this->setIsAllEmpty(false);
+
+	}else{
+		for(i=0;i< this->getNextFreePile();i++){
+
+			topBrain = this->getTopBrain(i);
+
+			if (topBrain > b ){
+
+				if(isCandidateFound){
+
+					if (topBrain > maxCurrentCandidade ){
+						maxCurrentCandidade = topBrain;
+						indexMaxCandidate = i;
+					}
+
+				}else{
+					maxCurrentCandidade = topBrain;
+					indexMaxCandidate = i;
+					isCandidateFound = true;
+				}
+
+			}
 
 
-	pileIndex = this->getNextFreePile();
 
-	this->setNextFreePile(pileIndex + 1);
+		}
 
+	if(isCandidateFound){
+		pileIndex = indexMaxCandidate;
+	}else{
+		pileIndex = this->getNextFreePile();
+		this->setNextFreePile(pileIndex+1);
+		}
+
+	}
 	return pileIndex;
 }
 

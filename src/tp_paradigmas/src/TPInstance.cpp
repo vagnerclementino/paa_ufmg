@@ -13,6 +13,7 @@
 #include <stdexcept>
 #include <exception>
 #include <sstream>
+#include <algorithm>
 #include "../../lib/PAAException.h"
 
 namespace PAA {
@@ -160,4 +161,21 @@ PAA::Brain TPInstance::getNextBrain(void){
 	return PAA::Instance<PAA::Brain>::getNextItem();
 
 }
+
+void TPInstance::sort(void){
+
+	PAA::Instance<PAA::Brain>::sort();
+}
+
+std::list<PAA::Brain>::iterator TPInstance::getBeginList(){
+
+	return PAA::Instance<PAA::Brain>::getBeginList();
+
+}
+std::list<PAA::Brain>::iterator TPInstance::getEndList(){
+
+	return PAA::Instance<PAA::Brain>::getEndList();
+
+}
+
 } /* namespace PAA */
