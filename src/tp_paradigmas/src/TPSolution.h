@@ -28,6 +28,7 @@ public:
 	PAA::Brain getLastItem(void);
 	void setCost(int);
 	void validateSolution(void);
+	void operator+=(Solution<PAA::Brain>&);
 
 };
 

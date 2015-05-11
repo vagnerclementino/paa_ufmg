@@ -16,6 +16,7 @@
 #include "TPInstance.h"
 #include "FBAlgorithm.h"
 #include "FBSolution.h"
+#include "PGAlgorithm.h"
 #include "GreedyAlgorithm.h"
 
 namespace PAA {
@@ -35,6 +36,7 @@ void TPParadigmas::run(void ){
 	PAA::GreedyAlgorithm* greedy;
 	PAA::TPSolution solution;
 	PAA::TPInstance instances;
+	PAA::PGAlgorithm pg;
 	try {
 
             std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
@@ -46,15 +48,18 @@ void TPParadigmas::run(void ){
 
 			instances.print();
 
-			this->showUserMessage("Lista Ordenada");
+			//this->showUserMessage("Lista Ordenada");
 
-			instances.sort();
+			//instances.sort();
 
-			instances.print();
+			//instances.print();
 
-			greedy = new PAA::GreedyAlgorithm(instances.getSize());
+			//greedy = new PAA::GreedyAlgorithm(instances.getSize());
 
-			solution = greedy->execute(instances);
+			//solution = greedy->execute(instances);
+
+			pg.execute(instances);
+
 
 			//solution.print();
 

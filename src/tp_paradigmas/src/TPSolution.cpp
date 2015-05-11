@@ -147,4 +147,10 @@ void TPSolution::validateSolution(void){
 	}
 }
 
+void TPSolution::operator+=(Solution<PAA::Brain>& other){
+
+	PAA::Solution<PAA::Brain>::operator +=(other);
+
+}
+
 } /* namespace PAA */

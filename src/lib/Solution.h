@@ -32,6 +32,9 @@ protected:
 	typename std::list<T>::iterator getEndList();
 	T getLastItem(void);
 	void calculeCost(const T&);
+	void append(std::list<T>&);
+	void operator+=(PAA::Solution<T>&);
+	std::list<T>  getAll(void);
 
 
 	virtual void validateSolution(void) = 0;
@@ -131,7 +134,29 @@ template<class T> Solution<T>::Solution(){
 	this->setIsValid(false);
 	this->setIsItValidated(false);
 }
+template<class T> void Solution<T>::append(std::list<T>& listToAppend){
+	this->solutionList.splice(this->solutionList.end(), listToAppend);
+	this->setCost(this->getCost() + listToAppend.size());
+}
 
+template<class T> void Solution<T>::operator+=(PAA::Solution<T>& other){
+
+	typename std::list<T>::iterator it;
+	typename std::list<T>::iterator itEnd;
+
+	itEnd = other.getEndList();
+
+	for(it = other.getBeginList(); it != itEnd; it++){
+
+		this->addSolutionItem(*(it));
+
+	}
+
+}
+
+template<class T> std::list<T> Solution<T>::getAll(void){
+	return this->solutionList;
+}
 template<class T> Solution<T>::~Solution(){
 	//Do nothing
 }

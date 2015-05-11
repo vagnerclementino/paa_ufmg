@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -g -c -Wall -D__USE_FIXED_PROTOTYPES__ -lm
+CFLAGS= -g -c -Wall -D__USE_FIXED_PROTOTYPES__ -lm -O3
 #
 # Compiler flags:
 # -c -- Compile or assemble the source files, but do not link.
@@ -22,6 +22,7 @@ OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/FBAlgorithm.o \
 	$(SRC_FOLDER)/TPSolution.o \
 	$(SRC_FOLDER)/GreedyAlgorithm.o \
+	$(SRC_FOLDER)/PGAlgorithm.o \
 	$(PAA_LIB_PATH)/FileManager.o \
 	$(PAA_LIB_PATH)/PAAException.o \
 	$(PAA_LIB_PATH)/TrabalhoPratico.o \
@@ -79,7 +80,10 @@ TPSolution.o: TPSolution.h TPSolution.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/TPSolution.cpp
 	
 TPSolution.o: GreedyAlgorithm.h GreedyAlgorithm.cpp
-	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/GreedyAlgorithm.cpp	
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/GreedyAlgorithm.cpp
+	
+TPSolution.o: PGAlgorithm.h PGAlgorithm.cpp
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/PGAlgorithm.cpp
 clean:
 	@echo "Removendo arquivos temporários e o executável..."
 	@rm -f $(OBJS) *.gch $(PROGRAM_NAME)
