@@ -13,7 +13,6 @@ PAA_LIB_PATH=../lib
 SRC_FOLDER=./src
 BIN_DIR=./bin
 IN_DIR=../inputs
-THIS_DIR:=$(shell cd $(dir $(THIS_MAKEFILE_PATH));pwd)
 OUT_DIR=../intputs
 OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/Brain.o \
@@ -33,9 +32,9 @@ INPUTFILE=$(-i ../inputs/input.txt)
 OUTPUTFILE=$(-o ../outputs/output.txt) 
 
 all: app_structure msg_user linking $(BIN_DIR)/$(PROGRAM_NAME)
-	@echo "Executando o programa..."
-	@rm -f $(OBJS) *.gch
-	@./$(BIN_DIR)/$(PROGRAM_NAME) $(INPUTFILE) $(OUTPUTFILE) -p all
+	@echo "Compilado com sucesso..."
+	@rm -f $(OBJS) *.gch	
+#@./$(BIN_DIR)/$(PROGRAM_NAME) $(INPUTFILE) $(OUTPUTFILE) -p all
 
 app_structure:
 	@mkdir -p $(BIN_DIR)
@@ -43,7 +42,7 @@ app_structure:
 	@mkdir -p $(OUT_DIR)
 	
 msg_user:
-	@echo "Executando o makefile do programa " \
+	@echo "Compilando o programa " \
 	 	  "$(PROGRAM_NAME) criado por $(CRIADOR)."
 	
 linking: $(OBJS)
