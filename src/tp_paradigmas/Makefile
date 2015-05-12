@@ -12,8 +12,9 @@ CRIADOR=Vagner Clementino
 PAA_LIB_PATH=../lib
 SRC_FOLDER=./src
 BIN_DIR=./bin
-IN_DIR=./inputs
-OUT_DIR=./outputs
+IN_DIR=../inputs
+THIS_DIR:=$(shell cd $(dir $(THIS_MAKEFILE_PATH));pwd)
+OUT_DIR=../intputs
 OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/Brain.o \
 	$(SRC_FOLDER)/TPInstance.o \
@@ -22,19 +23,19 @@ OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/FBAlgorithm.o \
 	$(SRC_FOLDER)/TPSolution.o \
 	$(SRC_FOLDER)/GreedyAlgorithm.o \
-	$(SRC_FOLDER)/PGAlgorithm.o \
+	$(SRC_FOLDER)/PDAlgorithm.o \
 	$(PAA_LIB_PATH)/FileManager.o \
 	$(PAA_LIB_PATH)/PAAException.o \
 	$(PAA_LIB_PATH)/TrabalhoPratico.o \
 
 #INPUTFILE= $(pwd)entradas/input.txt
-INPUTFILE=$(IN_DIR)/input.txt
-OUTPUTFILE=$(OUT_DIR)/output.txt 
+INPUTFILE=$(-i ../inputs/input.txt)
+OUTPUTFILE=$(-o ../outputs/output.txt) 
 
 all: app_structure msg_user linking $(BIN_DIR)/$(PROGRAM_NAME)
 	@echo "Executando o programa..."
 	@rm -f $(OBJS) *.gch
-	@./$(BIN_DIR)/$(PROGRAM_NAME)
+	@./$(BIN_DIR)/$(PROGRAM_NAME) $(INPUTFILE) $(OUTPUTFILE) -p all
 
 app_structure:
 	@mkdir -p $(BIN_DIR)
@@ -82,8 +83,8 @@ TPSolution.o: TPSolution.h TPSolution.cpp
 TPSolution.o: GreedyAlgorithm.h GreedyAlgorithm.cpp
 	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/GreedyAlgorithm.cpp
 	
-TPSolution.o: PGAlgorithm.h PGAlgorithm.cpp
-	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/PGAlgorithm.cpp
+TPSolution.o: PDAlgorithm.h PDAlgorithm.cpp
+	@$(CC) $(CFLAGS) $(PAA_LIB_PATH)/PDAlgorithm.cpp
 clean:
 	@echo "Removendo arquivos temporários e o executável..."
 	@rm -f $(OBJS) *.gch $(PROGRAM_NAME)

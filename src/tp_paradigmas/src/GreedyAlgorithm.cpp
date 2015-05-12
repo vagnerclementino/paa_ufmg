@@ -197,8 +197,6 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 
 	instances.sort();
 
-	instances.print();
-
 	for(itListBrain = instances.getBeginList(); itListBrain != endList; itListBrain++){
 
 		b = *(itListBrain);
@@ -215,6 +213,7 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 	 * validação.
 	 */
 	greedySolution.setWasValidated(true);
+	greedySolution.setIsValid(true);
 
 	//Revertendo a ordem da lista para adequar a apresentação solicitada
 	greedySolution.reverse();

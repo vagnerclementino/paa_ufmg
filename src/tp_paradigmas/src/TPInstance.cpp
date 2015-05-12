@@ -37,6 +37,7 @@ TPInstance::~TPInstance() {
 	 int qiBrain;
 
 
+
 	 //Abrindo o arquivo em modo de leitura
 	 this->fm->openFile(filePath,'R');
 	 while(this->fm->hasMore()){

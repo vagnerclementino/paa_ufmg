@@ -96,6 +96,7 @@ template<class T> bool Solution<T>::getWasValidated(void){
 template<class T> void Solution<T>::setWasValidated(bool newSituation){
 
 	this->isItValidated = newSituation;
+	this->isValidSolution = newSituation;
 }
 
 template<class T> typename std::list<T>::iterator Solution<T>::getBeginList(){
@@ -120,6 +121,7 @@ template<class T> bool Solution<T>::isEmpty(void){
 template<class T> void Solution<T>::setIsItValidated(bool newSituation){
 
 	this->isItValidated = newSituation;
+	this->isValidSolution = newSituation;
 }
 template<class T>  T Solution<T>::getLastItem(void){
 	T item;

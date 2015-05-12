@@ -8,16 +8,18 @@
 #include "TPSolution.h"
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
+#include <string>
 
 namespace PAA {
 
 TPSolution::TPSolution() {
-	// TODO Auto-generated constructor stub
+	this->fm = NULL;
 
 }
 
 TPSolution::~TPSolution() {
-	// TODO Auto-generated destructor stub
+	delete this->fm;
 }
 
 void TPSolution::print(void){
@@ -25,13 +27,25 @@ void TPSolution::print(void){
 	std::list<PAA::Brain>::iterator it;
 	std::list<PAA::Brain>::iterator itEnd;
 	std::stringstream ss;
+	std::stringstream ssFile;
 
 	ss << "[";
 
 	itEnd = PAA::Solution<PAA::Brain>::getEndList();
 
+    ssFile << this->getCost();
+
+	this->fm->writeToFile(ssFile.str());
+	ssFile.str(std::string());
+
+
 	for( it = PAA::Solution<PAA::Brain>::getBeginList(); it != itEnd; it++){
 		ss << it->getID() << ",";
+
+		ssFile << it->getID();
+		this->fm->writeToFile(ssFile.str());
+		ssFile.str(std::string());
+
 	}
 	//Removendo o último caractere da stream
 	ss.seekp(ss.str().length()-1);
@@ -39,6 +53,8 @@ void TPSolution::print(void){
 	ss << "]";
 	std::cout << "Tamanho da solução: "  << this->getCost() << std::endl;
 	std::cout << ss.str() << std::endl;
+
+
 }
 int TPSolution::getCost(void){
 
@@ -162,6 +178,14 @@ void TPSolution::clear(void){
 void TPSolution::reverse(void){
 
 	PAA::Solution<PAA::Brain>::reverse();
+
+}
+
+void TPSolution::setOutputFile(std::string& filePath){
+
+	  this->fm = new PAA::FileManager();
+	 //Abrindo o arquivo no modo de escrita
+	 this->fm->openFile(filePath,'W');
 
 }
 

@@ -9,10 +9,14 @@
 #define TPSOLUTION_H_
 #include "Brain.h"
 #include "../../lib/Solution.h"
+#include <string>
+#include "../../lib/FileManager.h"
 
 namespace PAA {
 
 class TPSolution: public Solution<PAA::Brain> {
+private:
+	PAA::FileManager* fm;
 public:
 	TPSolution();
 	virtual ~TPSolution();
@@ -31,6 +35,7 @@ public:
 	void operator+=(Solution<PAA::Brain>&);
 	void clear (void);
 	void reverse(void);
+	void setOutputFile(std::string&);
 
 };
 

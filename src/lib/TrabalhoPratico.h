@@ -35,7 +35,7 @@ private:
 
 protected:
 	TrabalhoPratico();
-	TrabalhoPratico(int , char **);
+	TrabalhoPratico(int , char**);
 	virtual ~TrabalhoPratico();
 	int getArgc(void);
 	char** getArgv(void);

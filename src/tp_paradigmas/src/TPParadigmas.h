@@ -10,6 +10,9 @@
 
 #include <string>
 #include "../../lib/TrabalhoPratico.h"
+#include <vector>
+
+
 #define NUMBER_OF_ARGUMENTS 7
 #define PROGRAM_NAME_POSITION 0
 #define INPUT_FILE_NAME_POSITION 2
@@ -19,8 +22,10 @@
 namespace PAA {
 
 class TPParadigmas: public TrabalhoPratico {
+private:
+	std::vector<std::string>* pArgs;
 public:
-	TPParadigmas(int, char **);
+	TPParadigmas(int, char**);
 	virtual ~TPParadigmas();
 	void run(void);
 	void showUserMessage(const std::string&);
@@ -28,7 +33,6 @@ public:
 protected:
 	void setFinalTime(void);
 	int getNumberOfArgs(void);
-	std::vector<std::string> getStingOfArgs(void);
 	std::string getInputFilePath(void);
 	std::string getOutputFilePath(void);
 	std::string getParadigmType(void);
