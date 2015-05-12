@@ -9,14 +9,15 @@
 #define FBALGORITHM_H_
 #include "FBSolution.h"
 #include "Brain.h"
-#include "IAlgorithms.h"
 #include <vector>
 #include <list>
 #include "TPInstance.h"
 #include <limits>
+
+#include "TPAlgorithms.h"
 namespace PAA {
 
-class FBAlgorithm{
+class FBAlgorithm: public TPAlgorithms {
 public:
 	FBAlgorithm();
 	virtual ~FBAlgorithm();

@@ -14,10 +14,9 @@
 #include <unistd.h>
 #include "Brain.h"
 #include "TPInstance.h"
-#include "FBAlgorithm.h"
 #include "FBSolution.h"
-#include "PDAlgorithm.h"
-#include "GreedyAlgorithm.h"
+#include "AlgorithmFactory.h"
+#include "TPAlgorithms.h"
 
 namespace PAA {
 
@@ -42,11 +41,10 @@ TPParadigmas::~TPParadigmas() {
 
 void TPParadigmas::run(void ){
 	std::stringstream ss;
-	PAA::FBAlgorithm fb;
-	PAA::GreedyAlgorithm* greedy;
 	PAA::TPSolution solution;
 	PAA::TPInstance instances;
-	PAA::PDAlgorithm pd;
+	PAA::AlgorithmFactory factory;
+	PAA::TPAlgorithms algorithm;
 	try {
 
             std::string inputFile = this->getInputFilePath();
@@ -59,13 +57,15 @@ void TPParadigmas::run(void ){
 			this->showUserMessage(ss.str());
 			ss.str(std::string());
 
+			std::string paradigmType = this->getParadigmType();
 
+			algorithm = factory.create(paradigmType, instances.getSize());
 
-			//solution = fb.execute(instances);
+			solution = algorithm.execute(instances);
 
-			greedy = new PAA::GreedyAlgorithm(instances.getSize());
+			//greedy = new PAA::GreedyAlgorithm(instances.getSize());
 
-			solution = greedy->execute(instances);
+			//solution = greedy->execute(instances);
 
 			if (solution.isValid()) {
 				solution.setOutputFile(outputFile);
@@ -79,7 +79,7 @@ void TPParadigmas::run(void ){
 
 
 
-			solution = pd.execute(instances);
+			/*solution = pd.execute(instances);
 
 			if(solution.isValid()){
 				solution.setOutputFile(outputFile);
@@ -89,13 +89,13 @@ void TPParadigmas::run(void ){
 			}else{
 				this->showUserMessage("Não foi encontrada um solução para a instância informada.");
 			}
-
+*/
 
 			this->showUserMessage("Finalizando a execução.");
 
 			this->setFinalTime();
 
-			delete greedy;
+			///delete greedy;
 
 
 	} catch (const std::exception& e) {
