@@ -35,8 +35,8 @@ protected:
 	void append(std::list<T>&);
 	void operator+=(PAA::Solution<T>&);
 	std::list<T>  getAll(void);
-
-
+	void clear(void);
+	void reverse();
 	virtual void validateSolution(void) = 0;
 	virtual void print(void) = 0;
 public:
@@ -154,8 +154,13 @@ template<class T> void Solution<T>::operator+=(PAA::Solution<T>& other){
 
 }
 
-template<class T> std::list<T> Solution<T>::getAll(void){
-	return this->solutionList;
+
+template<class T> void Solution<T>::clear(void){
+	return this->solutionList.clear();
+}
+
+template<class T> void Solution<T>::reverse(void){
+	this->solutionList.reverse();
 }
 template<class T> Solution<T>::~Solution(){
 	//Do nothing

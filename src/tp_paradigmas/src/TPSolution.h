@@ -29,6 +29,8 @@ public:
 	void setCost(int);
 	void validateSolution(void);
 	void operator+=(Solution<PAA::Brain>&);
+	void clear (void);
+	void reverse(void);
 
 };
 

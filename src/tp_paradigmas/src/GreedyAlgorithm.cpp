@@ -195,6 +195,10 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 
 	endList = instances.getEndList();
 
+	instances.sort();
+
+	instances.print();
+
 	for(itListBrain = instances.getBeginList(); itListBrain != endList; itListBrain++){
 
 		b = *(itListBrain);
@@ -211,6 +215,9 @@ PAA::TPSolution GreedyAlgorithm::execute(PAA::TPInstance& instances){
 	 * validação.
 	 */
 	greedySolution.setWasValidated(true);
+
+	//Revertendo a ordem da lista para adequar a apresentação solicitada
+	greedySolution.reverse();
 
 
 	return greedySolution;
@@ -253,11 +260,11 @@ int GreedyAlgorithm::greedyChoice(PAA::Brain& b){
 
 			topBrain = this->getTopBrain(i);
 
-			if (topBrain > b ){
+			if (b.getQI() > topBrain.getQI()){
 
 				if(isCandidateFound){
 
-					if (topBrain > maxCurrentCandidade ){
+					if (maxCurrentCandidade.getQI() < topBrain.getQI()){
 						maxCurrentCandidade = topBrain;
 						indexMaxCandidate = i;
 					}

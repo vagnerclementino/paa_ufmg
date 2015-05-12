@@ -16,7 +16,7 @@
 #include "TPInstance.h"
 #include "FBAlgorithm.h"
 #include "FBSolution.h"
-#include "PGAlgorithm.h"
+#include "PDAlgorithm.h"
 #include "GreedyAlgorithm.h"
 
 namespace PAA {
@@ -36,7 +36,7 @@ void TPParadigmas::run(void ){
 	PAA::GreedyAlgorithm* greedy;
 	PAA::TPSolution solution;
 	PAA::TPInstance instances;
-	PAA::PGAlgorithm pg;
+	PAA::PDAlgorithm pd;
 	try {
 
             std::string fileName = "/home/vagner/workspace/paa_ufmg/src/tp_paradigmas/inputs/inputs.txt";
@@ -46,22 +46,22 @@ void TPParadigmas::run(void ){
 			ss << "Tamanho da instância " << instances.getSize();
 			this->showUserMessage(ss.str());
 
-			instances.print();
+			solution = fb.execute(instances);
 
-			//this->showUserMessage("Lista Ordenada");
+			greedy = new PAA::GreedyAlgorithm(instances.getSize());
 
-			//instances.sort();
+			solution = greedy->execute(instances);
 
-			//instances.print();
+			solution.print();
 
-			//greedy = new PAA::GreedyAlgorithm(instances.getSize());
+			if (solution.isValid()) {
+				solution.print();
+				this->showUserMessage("Resultado escrito no arquivo inputs.txt.");
+			} else {
+				this->showUserMessage("Não foi encontrada um solução para a instância informada.");
+			}
 
-			//solution = greedy->execute(instances);
-
-			pg.execute(instances);
-
-
-			//solution.print();
+			solution = pd.execute(instances);
 
 			if(solution.isValid()){
 				solution.print();
@@ -105,6 +105,38 @@ void TPParadigmas::setFinalTime(void){
 
 	PAA::TrabalhoPratico::setFinalTime();
 
+}
+
+int TPParadigmas::getNumberOfArgs(void){
+
+	return PAA::TrabalhoPratico::getArgc();
+}
+
+std::vector<std::string> TPParadigmas::getStingOfArgs(void){
+
+	char** tempArgv = PAA::TrabalhoPratico::getArgv();
+	int tempArgc = PAA::TrabalhoPratico::getArgc();
+
+	std::vector<std::string> argList(tempArgc);
+	for(int i=0;i<tempArgc;i++){
+		argList.push_back(tempArgv[i]);
+	}
+
+    return argList;
+}
+
+std::string TPParadigmas::getInputFilePath(void){
+	return this->getStingOfArgs().at(INPUT_FILE_NAME_POSITION);
+}
+
+std::string TPParadigmas::getOutputFilePath(void){
+
+	return this->getStingOfArgs().at(OUTPUT_FILE_NAME_POSITION);
+}
+
+std::string TPParadigmas::getParadigmType(){
+
+	return this->getStingOfArgs().at(PARADIGM_TYPE_POSITION);
 }
 
 } /* namespace PAA */

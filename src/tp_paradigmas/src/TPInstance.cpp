@@ -178,4 +178,23 @@ std::list<PAA::Brain>::iterator TPInstance::getEndList(){
 
 }
 
+bool TPInstance::compareWeight(PAA::Brain& b1, PAA::Brain& b2){
+
+	return (b1.getWeight() > b2.getWeight());
+
+}
+bool TPInstance::compareQI(PAA::Brain& b1, PAA::Brain& b2){
+	return (b1.getQI() < b2.getQI());
+}
+
+void TPInstance::sortByQI(void){
+
+	PAA::Instance<PAA::Brain>::sort();
+
+}
+
+void TPInstance::sortByWeight(void){
+
+}
+
 } /* namespace PAA */

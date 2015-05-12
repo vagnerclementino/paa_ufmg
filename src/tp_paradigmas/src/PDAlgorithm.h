@@ -13,11 +13,11 @@
 
 namespace PAA {
 
-class PGAlgorithm {
+class PDAlgorithm {
 public:
-	PGAlgorithm();
-	virtual ~PGAlgorithm();
-	/*PAA::TPSolution*/ void execute(PAA::TPInstance&);
+	PDAlgorithm();
+	virtual ~PDAlgorithm();
+	PAA::TPSolution execute(PAA::TPInstance&);
 };
 
 } /* namespace PAA */

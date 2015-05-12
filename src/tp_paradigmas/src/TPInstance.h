@@ -22,7 +22,8 @@ private:
 	std::vector<std::string> splitString(const char* , char);
 	void setLastInstanceID(int);
 	int getInstanceID(void);
-
+	bool compareWeight(PAA::Brain&, PAA::Brain&);
+	bool compareQI(PAA::Brain&, PAA::Brain&);
 
 
 
@@ -41,6 +42,8 @@ public:
 	std::vector<int> getIdList();
 	std::list<PAA::Brain>::iterator getBeginList();
 	std::list<PAA::Brain>::iterator getEndList();
+	void sortByQI(void);
+	void sortByWeight(void);
 };
 
 } /* namespace PAA */

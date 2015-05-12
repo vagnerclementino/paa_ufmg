@@ -153,4 +153,16 @@ void TPSolution::operator+=(Solution<PAA::Brain>& other){
 
 }
 
+void TPSolution::clear(void){
+
+	PAA::Solution<PAA::Brain>::clear();
+
+}
+
+void TPSolution::reverse(void){
+
+	PAA::Solution<PAA::Brain>::reverse();
+
+}
+
 } /* namespace PAA */
