@@ -26,7 +26,7 @@ FBAlgorithm::~FBAlgorithm() {
 
 
 }
-void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, int lastID, PAA::TPInstance& instances, std::vector<int>* vectorSolution,int index, int maxDepth, std::list<PAA::FBSolution>& solutionList){
+void FBAlgorithm::generateAllSolutions(std::vector<int>& alphabet, int lastID, PAA::TPInstance& instances, std::vector<int>* vectorSolution,int index, int maxDepth, PAA::FBSolution& solution){
 
 	std::vector<int>::iterator it;
 	PAA::FBSolution solutionTemp;
@@ -51,17 +51,22 @@ void FBAlgorithm::generateAllSolutions(std::vector<int> alphabet, int lastID, PA
 			solutionTemp = buildSolution(vectorSolution,instances);
 
 			if(solutionTemp.isValid()){
-				solutionList.push_back(solutionTemp);
+
+				if(solutionTemp.getCost() > solution.getCost()){
+
+					solution = solutionTemp;
+				}
+
 			}
 
 		}else{
-		  generateAllSolutions(alphabet, lastID, instances, vectorSolution, index + 1, maxDepth, solutionList);
+		  generateAllSolutions(alphabet, lastID, instances, vectorSolution, index + 1, maxDepth, solution);
 		}
 
 	}
 }
 
-void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, std::list<PAA::FBSolution>& solutionList){
+void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, PAA::FBSolution& solution){
 
 	int maxSize = (instances.getSize());
 	std::vector<int>* pVector;
@@ -78,7 +83,7 @@ void FBAlgorithm::bruteForceSearch(PAA::TPInstance& instances, std::list<PAA::FB
 
 		pVector = new std::vector<int>(index+1);
 
-		generateAllSolutions(alphabet, std::numeric_limits<int>::min(), instances, pVector,0,index+1,solutionList);
+		generateAllSolutions(alphabet, std::numeric_limits<int>::min(), instances, pVector,0,index+1,solution);
 
 		delete pVector;
 
@@ -136,7 +141,7 @@ PAA::FBSolution FBAlgorithm::buildSolution(std::vector<int>* solutionCoding, PAA
 
 PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
 
-	PAA::FBSolution solution;
+	PAA::FBSolution bestSolution;
 	std::list<PAA::FBSolution> solutionList;
 	std::stringstream ss;
 	std::list<PAA::FBSolution>::iterator it;
@@ -148,16 +153,16 @@ PAA::FBSolution FBAlgorithm::execute(PAA::TPInstance& instance){
 	 * Estas soluções, quando válidas, são inseridas
 	 * na lista 'solutionList'
 	 * ********************************************/
-	this->bruteForceSearch(instance, solutionList);
+	this->bruteForceSearch(instance, bestSolution);
 
 	/****************************************************
 	 * Buscando entre todas as soluções válida aquela
 	 * que é a melhor. Melhor neste contexto significa
 	 * a de maior custo ou maior tamanho.
 	 ***************************************************/
-	solution = this->findBestSolution(solutionList);
+	//bestSolution = this->findBestSolution(solutionList);
 
-	return solution;
+	return bestSolution;
 
 
 }

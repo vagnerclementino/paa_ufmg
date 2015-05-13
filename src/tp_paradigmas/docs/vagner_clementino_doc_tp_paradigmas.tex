@@ -116,12 +116,25 @@ $S_{best} \gets \emptyset$\;
 
 Conforme exposto anteriormente, na abordagem de Força Bruta é realizada uma busca em cada item do espaço de soluções do problema. Na subseção \ref{subsubsec:model_fb} discutiu-se que este espaço de solução $O(2^{n})$. Neste contexto, o método responsável por varrer o espaço de soluções necessariamente terá sua complexidade igual $O(2^{n})$. No algoritmo \ref{algo:brute_force} este trabalho é realizado pelo método \textsc{GENERATE-ALL-SOLUTIONS}{}. Como não as demais funções do algoritmo possuem complexidade inferiores, podemos concluir que o algoritmo de força bruta proposto possui ondem de complexidade de tempo igual a $O(2^{n})$.
 
-No tocante a complexidade de espaço, o algoritmo pode ser otimizado a apenas gerar um única solução-candidata por vez. Caso uma nova solução gerada seja melhor, a solução-candidata anterior poderá ser descartada. Seguindo esta abordagem o algoritmo terá uma complexidade de espaço igual a $O(1)${}.
+No tocante a complexidade de espaço, o algoritmo necessita carregar os conjuntos $C$, $P$ e $Q$ a fim de poder gerar todas as soluções e verificar se elas são válidas. Apesar de no pior caso existir $O(2^{n})$ possíveis soluções, o sistema apenas armazena a melhor solução encontrada no momento. Partindo desta estratégia teremos um cutso de espaço igual a $O(1)$. Neste sentido, o algoritmo têm uma complexidade de espaço igual a $O(n)${}.
 
 \subsection{Uma abordagem Gulosa}
 \label{subsec:guloso}
 
-The subsection titles must be in boldface, 12pt, flush left.
+Apesar do algoritmo de força bruta resolver o problema, conforme poderá ser observado na Seção \ref{sec:experimentos} onde descreve a análise experimental dos algoritmos, tal abordagem torna-se impraticável quando o tamanho da entrada cresce. Com o objetivo de encontrar uma solução de melhor desempenho, esta seção descreve uma solução baseada no paradigma \textit{Guloso}.
+
+\subsubsection{Modelagem}
+\label{subsubsec:model_guloso}
+Um problema é passível de ser resolvido utilizando a abordagem Gulosa caso ele possua a propriedade da \texit{subestrutura ótima}{}. Um problema é dito ter subestrutura ótima se uma solução ótima pode ser construído de forma eficiente a partir de soluções ótimas de seus subproblemas \cite{Cormen:2009:IAT:1614191}{}. Vamos provar que o problema em  questão possui subestrutura ótima.
+
+Iniciemos, sem perda de generalidade, ordenando o conjunto de entrada $C$ de forma descrescente pelo seu conjunto de pesos $P$. Conforme exposto na Seção \ref{sec:definicao} ao realizarmos a ordenação da entrada conforme proposto, o problema transforma-se em encontrar uma \texit{LIS} no novo conjunto de QI's $Q^{'}$ gerado.
+
+Seja $S_{ij}$ a maior LIS entre os elementos $i$ e $j$ do conjunto  $Q^{'}$, conforme descrito no parágrafo anterior, tal que $1 \leq i \leq (n-1)$ e $i < j$. Desta forma, $S_{1n}$ é a solução ótima para o problema. Suponha que escolhamos um valor $k$ qualquer de modo que $ i \leq k < j$. As soluções $S_{ik}$ e $S_{(K+1)j}$ \texit{são ótimas} o que pode ser provado por absurdo. Suponha sem perda de generalidade que exita uma solução $S'_{ik}$ tal $|S'_{ik}| > |S_{ik}|$, a existência de $S'_{ik}$ vai contra a suposição de que $S_{ij}$ seja ótima.
+
+Após provado que o problema apresenta subestrutura ótima já é possível propor um algoritmo guloso para o problema. A solução proposta é detalhada na subseção \ref{subsubsec:alg_guloso}.
+
+\subsubsection{O Algoritmo Guloso}
+\label{subsubsec:alg_guloso}
 
 \subsection{Programação Dinâmica}
 \label{subsec:pd}
