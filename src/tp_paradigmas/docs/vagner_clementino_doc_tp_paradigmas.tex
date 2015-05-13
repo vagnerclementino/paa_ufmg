@@ -1,106 +1,130 @@
+% !TeX encoding   = UTF-8
 \documentclass[12pt]{article}
 
 \usepackage{sbc-template}
 
 \usepackage{graphicx,url}
-
-%\usepackage[brazil]{babel}   
-\usepackage[latin1]{inputenc}  
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}	%Package para figuras
+\usepackage{tabularx}
+\usepackage{multirow} 
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{epsfig}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
      
 \sloppy
 
-\title{Instructions for Authors of SBC Conferences\\ Papers and Abstracts}
+\title{Projeto e Análise de Algoritmos\\ Trabalho Prático 1 - Paradigmas}
 
-\author{Luciana P. Nedel\inst{1}, Rafael H. Bordini\inst{2}, Fl�vio Rech
-  Wagner\inst{1}, Jomi F. H�bner\inst{3} }
+\author{Vagner Clementino\inst{1}}
 
-
-\address{Instituto de Inform�tica -- Universidade Federal do Rio Grande do Sul
-  (UFRGS)\\
-  Caixa Postal 15.064 -- 91.501-970 -- Porto Alegre -- RS -- Brazil
-\nextinstitute
-  Department of Computer Science -- University of Durham\\
-  Durham, U.K.
-\nextinstitute
-  Departamento de Sistemas e Computa��o\\
-  Universidade Regional de Blumenal (FURB) -- Blumenau, SC -- Brazil
-  \email{\{nedel,flavio\}@inf.ufrgs.br, R.Bordini@durham.ac.uk,
-  jomi@inf.furb.br}
+\address{Departamento de Ciência da Computação\\
+	   Universidade Federal de Minas Gerais (UFMG)\\  
+  \email{vagnercs@dcc.ufmg.br}
 }
 
 \begin{document} 
 
 \maketitle
 
-\begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
-\end{abstract}
+%\begin{abstract}
+%  This meta-paper describes the style to be used in articles and short papers
+%  for SBC conferences. For papers in English, you should add just an abstract
+%  while for the papers in Portuguese, we also ask for an abstract in
+%  Portuguese (``resumo''). In both cases, abstracts should not have more than
+%  10 lines and must be in the first page of the paper.
+%\end{abstract}
      
 \begin{resumo} 
-  Este meta-artigo descreve o estilo a ser usado na confec��o de artigos e
-  resumos de artigos para publica��o nos anais das confer�ncias organizadas
-  pela SBC. � solicitada a escrita de resumo e abstract apenas para os artigos
-  escritos em portugu�s. Artigos em ingl�s dever�o apresentar apenas abstract.
-  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
-  n�o ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  p�gina do artigo.
+ TO DO
 \end{resumo}
 
 
-\section{General Information}
+\section{Introdução}
+\label{sec:intro}
 
-All full papers and posters (short papers) submitted to some SBC conference,
-including any supporting documents, should be written in English or in
-Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-headers or footers. The main font must be Times, 12 point nominal size, with 6
-points of space before each paragraph. Page numbers must be suppressed.
+Apesar da crença um cérebro maior não indica maior inteligência. Um contraexemplo bastante conhecido é Albert Einsten, cujo volume de seu cérebro não era maior do que o da média. Com a melhoria das imagens de ressonância magnética (IRM), diversos estudos vêm sendo proposto com o objetivo de correlacionar o \textit{volume} do cérebro com o \textit{Quociente de Inteligência} (QI). Um estudo utilizando imagens concluiu que a correlação entre QI e o volume do cérebro é consistente, todavia, as correlações fracas, e não há como comprovar uma relação direta. Em síntese: ser um \textit{``cabeção"} não é indicativo de inteligência.
 
-Full papers must respect the page limits defined by the conference.
-Conferences that publish just abstracts ask for \textbf{one}-page texts.
+A fim de refutar de vez esta crença, este trabalho se propõem em analisar os dados de \emph{peso} e \emph{QI} de um determinada população, com o objetivo de encontrar o maior número de pessoas cujo o peso do seu cérebro é menor, contudo, com um QI maior. O problema será formalmente definido na Seção \ref{sec:definicao}{}.
 
-\section{First Page} \label{sec:firstpage}
+Este documento está estruturado como segue. A Seção \ref{sec:definicao} define formalmente o problema, fazendo uma relação do mesmo com o problema da \textit{Longest increasing subsequence}{}; a Seção \ref{sec:solucoes} apresenta as três soluções propostas para resolver o problema: \textsc{Força Bruta} (subseção \ref{subsec:forca_bruta}{}), \textsc{Gulosa} (subseção \ref{subsec:guloso}) e \textsc{Programação Dinâmica} (subseção \ref{subsec:pd}); a Seção \ref{sec:experimentos}{} faz uma discussão sobre resultados os experimentais de cada solução; a Seção \ref{sec:conclusao} discorre sobre as conclusões do trabalho.
 
-The first page must display the paper title, the name and address of the
-authors, the abstract in English and ``resumo'' in Portuguese (``resumos'' are
-required only for papers written in Portuguese). The title must be centered
-over the whole page, in 16 point boldface font and with 12 points of space
-before itself. Author names must be centered in 12 point font, bold, all of
-them disposed in the same line, separated by commas and with 12 points of
-space after the title. Addresses must be centered in 12 point font, also with
-12 points of space after the authors' names. E-mail addresses should be
-written using font Courier New, 10 point nominal size, with 6 points of space
-before and 6 points of space after.
+\section{Definição Formal do Problema}
+\label{sec:definicao}
 
-The abstract and ``resumo'' (if is the case) must be in 12 point Times font,
-indented 0.8cm on both sides. The word \textbf{Abstract} and \textbf{Resumo},
-should be written in boldface and must precede the text.
+O problema pode ser definido formalmente da seguinte forma. Dados $C=\langle c_1, c_2, \ldots, c_n\rangle$ um conjunto de indivíduos de tamanho $n$, bem como $P=\langle p_1, p_2, \ldots, p_n\rangle$ e $Q=\langle q_1, q_2, \ldots, q_n\rangle$, onde $p_i$ e $q_i$ representa, respectivamente, o peso e o QI do i-ésimo indivíduo. O problema consiste em encontrar o subconjunto $S \subseteq C$ tal que para todo $s_i,s_j\in S $ onde $ i < j$ $ p_i < p_j$  \textbf{e} $q_i > q_j$. Além disso, $|S|$ deve ser \textit{máximo}.
 
-\section{CD-ROMs and Printed Proceedings}
+O problema proposto neste trabalho pode ser facilmente mapeado para um bem conhecido problema de otimização denominado \textit{Longest Increasing Subsequence - LIS}{}\cite{knuth2013art}{}. Para tanto, basta ordenar um dos conjuntos $P$ ou $Q$ de forma crescente ou decrescente. Por exemplo, caso o conjunto $P$ de forma decrescente, o problema se transforma em encontrar a maior \textit{LIS} no novo conjunto $Q^{'}$ que foi gerado pela ordenação de $P$.\footnote{Considera-se que para toda posição i em $P$ e $Q$ represente os dados do mesmo indivíduo}
 
-In some conferences, the papers are published on CD-ROM while only the
-abstract is published in the printed Proceedings. In this case, authors are
-invited to prepare two final versions of the paper. One, complete, to be
-published on the CD and the other, containing only the first page, with
-abstract and ``resumo'' (for papers in Portuguese).
+O LIS é um problema bastante estudado e existem diversas abordagens na literatura para resolvê-lo. Este trabalho utilizou algumas destas referências nas soluções propostas na Seção \ref{sec:solucoes}{}.
 
-\section{Sections and Paragraphs}
+\section{Soluções propostas}
+\label{sec:solucoes}
 
-Section titles must be in boldface, 13pt, flush left. There should be an extra
-12 pt of space before each title. Section numbering is optional. The first
-paragraph of each section should not be indented, while the first lines of
-subsequent paragraphs should be indented by 1.27 cm.
+Neste trabalho foi proposto três soluções para o problema utilizando os paradigmas \textsc{Força Bruta},  \textsc{Gulosa} e \textsc{Programação Dinâmica}{}. Para cada paradigma discute-se como foi realizada a modelagem, o funcionamento do algoritmo proposto e a análise da complexidade de tempo e de espaço. A descrição dos algoritmos será feita em mais alto nível por meio de pseudocódigo.
 
-\subsection{Subsections}
+\subsection{Força Bruta}
+\label{subsec:forca_bruta}
+
+\subsubsection{Modelagem}
+\label{subsubsec:model_fb}
+O paradigma de Força Bruta é o único que garantidamente encontra uma solução ótima para qualquer problema computável. Contudo, o preço que se paga por esta aplicabilidade universal é o alto custo de tempo e/ou espaço necessário. A principal característica de uma abordagem Força Bruta é que ela faz uma \textit{busca integral no espaço de soluções} \cite{Kleinberg:2005:AD:1051910}{}. Neste sentido, ao desenvolvermos um algoritmo força bruta, ele deverá listar todas as possíveis soluções do problema para posteriormente definir a melhor entre as soluções válidas.
+
+No contexto do problema estudado, o espaço de soluções consiste de todas as permutações dos elementos do \textit{power set} de $C$, cuja a notação é dada por $2^{C}$. Desta forma, o algoritmo a ser proposto deverá ser capaz de criar cada permutação possível de tamanho $1,2,\ldots, n$. Para cada permutação/solução criada deverá ser verificado se a solução é válida a fim de encontrar a melhor entre as válidas. Na próxima subseção descreveremos o algoritmo proposto.
+
+\subsubsection{O Algoritmo Força Bruta}
+\label{subsubsec:alg_fb}
+
+O algoritmo \ref{algo:brute_force} apresenta em alto nível a abordagem Força Bruta utilizada. Por meio do método \textsc{GENERATE-ALL-SOLUTIONS} todas as possível soluções são geradas. A partir delas a solução ótima (de maior tamanho) é encontrada e posteriormente retornada $S_{best}$. O método \textsc{IS-VALID} verifica se uma da solução é valida verificando se cada par de item respeita as restrições do problema.
+
+\begin{algorithm}
+\SetKwFunction{ISVALID}{IS-VALID}
+\SetKwFunction{GENERATEALLSOLUTIONS}{GENERATE-ALL-SOLUTIONS}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+\KwIn{As sequências finitas $C=\langle c_1, c_2, \ldots, c_n\rangle$, $P=\langle p_1, p_2, \ldots, p_n\rangle$ e $Q=\langle q_1, q_2, \dots, q_n\rangle$}
+\KwOut{Uma sequência $S_{best} \subseteq C$ tal que atende as restrições do problema e seja máxima}
+
+$U \gets $ \GENERATEALLSOLUTIONS{$C$}\;
+$max \gets 0$\;
+$S_{best} \gets \emptyset$\;
+\For{\textbf{each} $S$ \textbf{in} $U$} {
+   \If{\ISVALID{$S$}}{
+   		\If{$S.legth() > max$}{
+   		     $max \gets S.legth()$\;
+   		     $S_{best} \gets S$\;
+   		
+   		}
+   
+   }
+}
+\Return{$S_{best}$}\;
+\caption{{\sc BRUTE-FORCE} encontra a solução ótima listando todas elas.}
+\label{algo:brute_force}
+\end{algorithm}
+
+\subsubsection{Análise de Complexidade}
+\label{subsubsec:fb_analise_complexidade}
+
+Conforme exposto anteriormente, na abordagem de Força Bruta é realizada uma busca em cada item do espaço de soluções do problema. Na subseção \ref{subsubsec:model_fb} discutiu-se que este espaço de solução $O(2^{n})$. Neste contexto, o método responsável por varrer o espaço de soluções necessariamente terá sua complexidade igual $O(2^{n})$. No algoritmo \ref{algo:brute_force} este trabalho é realizado pelo método \textsc{GENERATE-ALL-SOLUTIONS}{}. Como não as demais funções do algoritmo possuem complexidade inferiores, podemos concluir que o algoritmo de força bruta proposto possui ondem de complexidade de tempo igual a $O(2^{n})$.
+
+No tocante a complexidade de espaço, o algoritmo pode ser otimizado a apenas gerar um única solução-candidata por vez. Caso uma nova solução gerada seja melhor, a solução-candidata anterior poderá ser descartada. Seguindo esta abordagem o algoritmo terá uma complexidade de espaço igual a $O(1)${}.
+
+\subsection{Uma abordagem Gulosa}
+\label{subsec:guloso}
 
 The subsection titles must be in boldface, 12pt, flush left.
 
-\section{Figures and Captions}\label{sec:figs}
+\subsection{Programação Dinâmica}
+\label{subsec:pd}
 
 
 Figure and table captions should be centered if less than one line
@@ -139,7 +163,8 @@ space before and after each caption.
 \includegraphics[width=.7\textwidth]{table.jpg}
 \end{table}
 
-\section{Images}
+\section{Análise Experimental}
+\label{sec:experimentos}
 
 All images and illustrations should be in black-and-white, or gray tones,
 excepting for the papers that will be electronically available (on CD-ROMs,
@@ -148,7 +173,8 @@ black-and-white images, and 150-300 dpi for grayscale images.  Do not include
 images with excessive resolution, as they may take hours to print, without any
 visible difference in the result. 
 
-\section{References}
+\section{Conclusões}
+\label{sec:conclusao}
 
 Bibliographic references must be unambiguous and uniform.  We recommend giving
 the author names references in brackets, e.g. \cite{knuth:84},
