@@ -125,16 +125,65 @@ Apesar do algoritmo de força bruta resolver o problema, conforme poderá ser ob
 
 \subsubsection{Modelagem}
 \label{subsubsec:model_guloso}
-Um problema é passível de ser resolvido utilizando a abordagem Gulosa caso ele possua a propriedade da \texit{subestrutura ótima}{}. Um problema é dito ter subestrutura ótima se uma solução ótima pode ser construído de forma eficiente a partir de soluções ótimas de seus subproblemas \cite{Cormen:2009:IAT:1614191}{}. Vamos provar que o problema em  questão possui subestrutura ótima.
+Um problema é passível de ser resolvido utilizando a abordagem Gulosa caso ele possua a propriedade da \textit{subestrutura ótima}{}. Um problema é dito ter subestrutura ótima se uma solução ótima pode ser construído de forma eficiente a partir de soluções ótimas de seus subproblemas \cite{Cormen:2009:IAT:1614191}{}. Vamos provar que o problema em  questão possui subestrutura ótima.
 
-Iniciemos, sem perda de generalidade, ordenando o conjunto de entrada $C$ de forma descrescente pelo seu conjunto de pesos $P$. Conforme exposto na Seção \ref{sec:definicao} ao realizarmos a ordenação da entrada conforme proposto, o problema transforma-se em encontrar uma \texit{LIS} no novo conjunto de QI's $Q^{'}$ gerado.
+Iniciemos, sem perda de generalidade, ordenando o conjunto de entrada $C$ de forma descrescente pelo seu conjunto de pesos $P$. Conforme exposto na Seção \ref{sec:definicao} ao realizarmos a ordenação da entrada conforme proposto, o problema transforma-se em encontrar uma \textit{LIS} no novo conjunto de QI's $Q^{'}$ gerado.
 
-Seja $S_{ij}$ a maior LIS entre os elementos $i$ e $j$ do conjunto  $Q^{'}$, conforme descrito no parágrafo anterior, tal que $1 \leq i \leq (n-1)$ e $i < j$. Desta forma, $S_{1n}$ é a solução ótima para o problema. Suponha que escolhamos um valor $k$ qualquer de modo que $ i \leq k < j$. As soluções $S_{ik}$ e $S_{(K+1)j}$ \texit{são ótimas} o que pode ser provado por absurdo. Suponha sem perda de generalidade que exita uma solução $S'_{ik}$ tal $|S'_{ik}| > |S_{ik}|$, a existência de $S'_{ik}$ vai contra a suposição de que $S_{ij}$ seja ótima.
+Seja $S_{ij}$ a maior LIS entre os elementos $i$ e $j$ do conjunto  $Q^{'}$, conforme descrito no parágrafo anterior, tal que $1 \leq i \leq (n-1)$ e $i < j$. Desta forma, $S_{1n}$ é a solução ótima para o problema. Suponha que escolhamos um valor $k$ qualquer de modo que $ i \leq k < j$. As soluções $S_{ik}$ e $S_{(K+1)j}$ \textit{são ótimas} o que pode ser provado por absurdo. Suponha sem perda de generalidade que exita uma solução $S'_{ik}$ tal $|S'_{ik}| > |S_{ik}|$, a existência de $S'_{ik}$ vai contra a suposição de que $S_{ij}$ seja ótima.
 
 Após provado que o problema apresenta subestrutura ótima já é possível propor um algoritmo guloso para o problema. A solução proposta é detalhada na subseção \ref{subsubsec:alg_guloso}.
 
 \subsubsection{O Algoritmo Guloso}
 \label{subsubsec:alg_guloso}
+
+O \textit{Patience Sorting} é um algoritmo de ordenação baseado no jogo de cartas de mesmo nome. O funcionamento básico do jogo é descrito a seguir:
+
+\begin{enumerate}
+  \item Inicialmente, não há pilhas. A primeira carta formará uma nova pilha de tamanho 1.
+  \item A cada nova carta retirada do baralho, caso ela seja menor que alguma carta no topo de qualquer uma das pilhas disponíveis, a carta será colocada no topo da pilha; caso contrário uma nova pilha será criada.
+  \item Quando não há mais cartas no baralho, o jogo termina.
+\end{enumerate}
+
+A Figura \ref{fig:patiente_sort} exibe o resultado da aplicação do Patience Sorting em um conjunto de números. Conforme pode ser observado ao final do algoritmo cada pilha terá uma \textit{sequência decrescente}. Utilizando esta propriedade do algoritmo foi realizada uma versão modificada do algoritmo para resolver o problema proposto neste trabalho. Basicamente realiza-se a ordenação do conjunto $P$ de forma crescente; a partir do novo conjunto $Q^{'}$ resultante aplica-se uma versão gulosa do Patience Sorting de que modo que ao final a maior pilha gerada será a solução do problema. O Algoritmo apresenta de forma genérica a solução proposta.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.5\textwidth]{patiente_sort.jpg}
+\caption{O resultado da aplicação Patience Sorting}
+\label{fig:patiente_sort}
+\end{figure}
+
+
+\begin{algorithm}
+\SetKwFunction{SORT}{SORT}
+\SetKwFunction{INITIALIZE}{INITIALIZE}
+\SetKwFunction{GREEDYCHOICE}{GREEDY-CHOICE}
+\SetKwFunction{PUSH}{PUSH}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+\KwIn{As sequências finitas $C=\langle c_1, c_2, \ldots, c_n\rangle$, $P=\langle p_1, p_2, \ldots, p_n\rangle$ e $Q=\langle q_1, q_2, \dots, q_n\rangle$}
+\KwOut{Uma sequência $S_{best} \subseteq C$ tal que atende as restrições do problema e seja máxima}
+
+\INITIALIZE o conjunto de $n$ pilhas ${S_1,S_2,\ldots,S_n}$\;
+\SORT($C$) {//\textit{Ordenando pelos pesos}}\;
+$maxLength \gets 0$\;
+$bestStack \gets 0$\;
+\For{$i$ \textbf{to} $n$} {
+   $j \gets $ \GREEDYCHOICE($c_i,q_i$)\;
+   \PUSH($S_j,c_i$)\;
+   \If{$|S_j| > maxLength$}{
+   
+   		$maxLength \gets|S_j|$\;
+		$bestStack \gets j$\; 
+   }   
+}
+\Return{$S_{bestStack}$}\;
+\caption{\sc GREEDY encontra a solução de forma gulosa.}
+\label{algo:guloso}
+\end{algorithm}
+
+Conforme exposto o algoritmo \ref{algo:guloso} é uma modificação gulosa do Patience Sorting. A parte gulosa do algoritmo está no método \textsc{\GREEDYCHOICE($c_i,q_i$)} que consiste basicamente em buscar a pilha cujo elemento no topo seja maior do que $q_i$. Caso exista mais de uma pilha candidata será \textit{retornada aquela cujo o elemento no topo seja o maior}.
+
+Não obstante, cabe um questionamento se a solução gulosa aqui proposta leva à solução ótima.
 
 \subsection{Programação Dinâmica}
 \label{subsec:pd}
@@ -146,12 +195,7 @@ both margins, as shown in Figure~\ref{fig:exampleFig2}. The caption font must
 be Helvetica, 10 point, boldface, with 6 points of space before and after each
 caption.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.5\textwidth]{fig1.jpg}
-\caption{A typical figure}
-\label{fig:exampleFig1}
-\end{figure}
+
 
 \begin{figure}[ht]
 \centering
