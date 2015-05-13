@@ -11,7 +11,7 @@
 #include <string>
 #include "../../lib/TrabalhoPratico.h"
 #include <vector>
-
+#include <map>
 
 #define NUMBER_OF_ARGUMENTS 7
 #define PROGRAM_NAME_POSITION 0
@@ -24,6 +24,13 @@ namespace PAA {
 class TPParadigmas: public TrabalhoPratico {
 private:
 	std::vector<std::string>* pArgs;
+	enum algorithms {
+		FORCE_BRUTE = 1, GREEDY = 2, PROG_DINAMIC = 3
+	};
+
+	std::map<std::string, algorithms> mapAlgorithms;
+	void loadMapParadigms(void);
+	int getParadigm(std::string&);
 public:
 	TPParadigmas(int, char**);
 	virtual ~TPParadigmas();

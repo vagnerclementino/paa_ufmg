@@ -10,11 +10,11 @@
 #include "Brain.h"
 #include "TPSolution.h"
 #include "TPInstance.h"
-#include "TPAlgorithms.h"
+
 
 namespace PAA {
 
-class GreedyAlgorithm: public TPAlgorithms {
+class GreedyAlgorithm{
 
 private:
 	std::vector<PAA::TPSolution*> *pSolutionPile;

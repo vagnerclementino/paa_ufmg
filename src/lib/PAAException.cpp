@@ -34,6 +34,10 @@ void PAAException::printDebugMessage(void)const{
 
 }
 
+std::string PAAException::getDebugMessage(void) const{
+	return this->errorMessage;
+}
+
 PAAException::~PAAException() throw(){
 
 

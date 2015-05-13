@@ -10,11 +10,11 @@
 #include "Brain.h"
 #include "TPSolution.h"
 #include "TPInstance.h"
-#include "TPAlgorithms.h"
+
 
 namespace PAA {
 
-class PDAlgorithm: public TPAlgorithms {
+class PDAlgorithm {
 public:
 	PDAlgorithm();
 	virtual ~PDAlgorithm();

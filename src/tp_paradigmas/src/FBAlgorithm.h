@@ -14,10 +14,9 @@
 #include "TPInstance.h"
 #include <limits>
 
-#include "TPAlgorithms.h"
 namespace PAA {
 
-class FBAlgorithm: public TPAlgorithms {
+class FBAlgorithm {
 public:
 	FBAlgorithm();
 	virtual ~FBAlgorithm();
