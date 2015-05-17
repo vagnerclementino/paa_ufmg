@@ -12,8 +12,8 @@ CRIADOR=Vagner Clementino
 PAA_LIB_PATH=../lib
 SRC_FOLDER=./src
 BIN_DIR=./bin
-IN_DIR=../inputs
-OUT_DIR=../intputs
+IN_DIR=./inputs
+OUT_DIR=./intputs
 OBJS=$(SRC_FOLDER)/main.o \
 	$(SRC_FOLDER)/Brain.o \
 	$(SRC_FOLDER)/TPInstance.o \
