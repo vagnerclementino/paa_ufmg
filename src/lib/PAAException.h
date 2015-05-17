@@ -37,6 +37,7 @@ public:
 	PAAException (const std::string&, const std::exception&);
 	PAAException (const std::string&);
 	void printDebugMessage(void) const ;
+	std::string getDebugMessage(void) const;
 	~PAAException() throw();
 };
 

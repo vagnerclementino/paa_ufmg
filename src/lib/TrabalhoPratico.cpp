@@ -151,4 +151,15 @@ void TrabalhoPratico::setLogFile(const std::string& logFileName){
 
 }
 
+int TrabalhoPratico::getArgc(void){
+	return this->argc;
+}
+
+char ** TrabalhoPratico::getArgv(void){
+
+	return(this->argv);
+}
+
+
+
 } /* namespace PAA */
