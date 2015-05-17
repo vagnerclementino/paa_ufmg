@@ -15,6 +15,7 @@
 #include <sstream>
 #include <algorithm>
 #include "../../lib/PAAException.h"
+#include "Brain.h"
 
 namespace PAA {
 
@@ -127,7 +128,7 @@ std::vector<std::string> TPInstance::splitString (const char *str, char delimite
 }
 
 int TPInstance::getSize(void){
-	return Instance::getSize();
+	return PAA::Instance<PAA::Brain>::getSize();
 }
 
 PAA::Brain TPInstance::getInstanceItem(int offSet){
